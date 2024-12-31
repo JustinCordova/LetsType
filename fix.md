@@ -1,0 +1,1 @@
+Change the taskbar so that it cannto be nuslected, somehting msut be  selected

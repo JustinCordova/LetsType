@@ -11,7 +11,7 @@
     <main>
       <h1 class="header">LeType with Lebron</h1>
       <!--<div style="display: flex; justify-content: center; align-items: center; height: 10%; padding: 1em 1em;">
-        <img src="assets/img/lebron.jpg" alt="lebron" width="500" height="100" />
+        <img src="assets/img/lepreg.jpeg" alt="lebron" width="500" height="100" style="padding: 10px 10px;" />
       </div>-->
       
       <!-- Taskbar -->
@@ -60,7 +60,7 @@
 
       <!-- User Input -->
       <div class="typing-container">
-        <span class="text-display" id="text-display">The quick brown fox jumps over the lazy dog.</span>
+        <span class="text-display" id="text-display"></span>
         <!-- Dynamically Add -->
         <input
         type="text"
@@ -68,7 +68,7 @@
         class="typing-input"
         autocomplete="off"
         style="border: none; background: transparent; color: purple;"
-        oninput="inputCheck(event)";
+        oninput="inputCheck(event); updateCursor(event)"
         />
 
       </div>

@@ -7,7 +7,6 @@ html, body {
   overflow-y: hidden;
   font-family: "Cabin", sans-serif;
   background-color: #1a1b26;
-  height: 100%;
 }
 body {
   min-height: 100vh;
@@ -50,6 +49,7 @@ main {
   cursor: pointer;
   gap: 30px;
   padding: 10px 10px; 
+  transition: 0.3s ease-in-out;
 }
 
 .buttons-set {
@@ -58,9 +58,10 @@ main {
   cursor: pointer;
   gap: 30px;
   padding: 10px 10px;
+  transition: 0.3s ease-in-out;
 }
 
-
+/* Must fix, add a js function */
 #times:hover {
   color: #f7768e;
 }
@@ -68,7 +69,6 @@ main {
 #words:hover {
   color: #f7768e;
 }
-
 
 #zen:hover {
   color: #f7768e;
@@ -129,6 +129,21 @@ main {
   z-index: 1;
   position: absolute;
 
+}
+
+/* Cursor Styling */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: white;
+  animation: pulse 0.8s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 /* Footer Styling */
