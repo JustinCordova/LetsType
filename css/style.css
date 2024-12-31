@@ -40,6 +40,8 @@ main {
   margin-top: -20px;
   border-radius: 15px;
   color: darkgrey;
+  z-index: 2;
+  position: relative;
 }
 
 .mode-buttons {
@@ -117,10 +119,14 @@ main {
 .typing-input {
   padding: 10px 15px;
   color: white;
-  max-width: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   font-size: 35px;
   outline: none;
   opacity: 0;
+  z-index: 1;
   position: absolute;
 
 }
