@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap");
+
+html, body {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  font-family: "Cabin", sans-serif;
+  background-color: #1a1b26;
+  height: 100%;
+}
+body {
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: 0px;
+  color: #f7768e;
+}
+
+.taskbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  text-align: center;
+  background-color: rgba(80, 80, 80, 0.25);
+  margin: 0 auto;
+  margin-top: -20px;
+  border-radius: 15px;
+  color: darkgrey;
+}
+
+.mode-buttons {
+  display: flex;
+  font-size: 20px;
+  cursor: pointer;
+  gap: 30px;
+  padding: 10px 10px; 
+}
+
+.buttons-set {
+  display: flex;
+  font-size: 20px;
+  cursor: pointer;
+  gap: 30px;
+  padding: 10px 10px;
+}
+
+
+#times:hover {
+  color: #f7768e;
+}
+
+#words:hover {
+  color: #f7768e;
+}
+
+
+#zen:hover {
+  color: #f7768e;
+}
+#quote:hover {
+  color: #f7768e;
+}
+
+#time1:hover {
+  color:#f7768e
+}
+#time2:hover {
+  color:#f7768e
+}
+#time3:hover {
+  color:#f7768e
+}
+#time4:hover {
+  color:#f7768e
+}
+#word1:hover {
+  color:#f7768e
+}
+#word2:hover {
+  color:#f7768e
+}
+#word3:hover {
+  color:#f7768e
+}
+#word4:hover {
+  color:#f7768e
+}
+
+/* Typing Styling */
+.typing-container {
+  padding: 50px 80px;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  color: #fff;
+}
+
+.text-display {
+  max-width: 100%;
+  font-size: 35px;
+  color: #9aa5ce;
+}
+.typing-input {
+  padding: 10px 15px;
+  color: white;
+  max-width: 100%;
+  font-size: 35px;
+  outline: none;
+  opacity: 0;
+  position: absolute;
+
+}
+
+/* Footer Styling */
+footer {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  padding: 1em 0;
+}
+
+footer p {
+  font-size: 10px;
+  color: grey;
+  margin: 0;
+}
+
+.clicked {
+  color: #f7768e
+}
