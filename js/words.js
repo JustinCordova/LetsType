@@ -18,7 +18,7 @@ function addCursor(spanId) {
   }
 }
 
-async function displayText() {
+function displayText() {
   let dispEl = document.getElementById("text-display");
   dispEl.innerHTML = "";
   let count = 0;
@@ -63,7 +63,7 @@ function inputCheck(event) {
   if (event.inputType === "deleteContentBackward") return;
 
   if (charArray[curWordIndex] === event.data) {
-    dispEl.style.color = "green";
+    dispEl.style.color = "lightgreen";
   } else {
     if (charArray[curWordIndex] === " ") {
       dispEl.style.backgroundColor = "red";

@@ -38,8 +38,41 @@ function wordsShow() {
     } else {
         // If words are already visible, toggle off the display but keep the "words" button pink
         words.style.display = "none";
+        wordButton.style.color = '#808080';
     }
 }
+
+// function toggleDisplay(clickedId) {
+//     // Get all the button elements and their corresponding content containers
+//     const buttons = document.querySelectorAll('.mode-buttons span');
+//     const times = document.getElementById('times-set');
+//     const words = document.getElementById('words-set');
+//     const quote = document.getElementById('quote'); // For color change
+//     const zen = document.getElementById('zen');   // For color change
+    
+//     const containers = {
+//       'times': times,
+//       'words': words,
+//       'quote': quote,
+//       'zen': zen
+//     };
+  
+//     // Loop through all buttons and reset their styles
+//     buttons.forEach(button => {
+//       // Reset button color to default (gray)
+//       button.style.color = '#808080';
+  
+//       // Hide all content containers (except the ones we want to display)
+//       if (button.id !== clickedId) {
+//         containers[button.id].style.display = 'none';
+//       }
+//     });
+  
+//     // Show the content for the clicked button and set its color to pink
+//     containers[clickedId].style.display = 'block';
+//     document.getElementById(clickedId).style.color = '#f7768e';
+//   }
+  
 
 
 function resetTimeButtons() {
