@@ -32,24 +32,24 @@
             >Time</span
           >
           <span onclick="toggleDisplay('words')" id="words">Words</span>
-          <span onclick="toggleDisplay('quote')" id="quote">Quote</span>
-          <span onclick="toggleDisplay('zen')" id="zen">Zen</span>
+          <span onclick="toggleDisplay('quote'); displayText();" id="quote">Quote</span>
+          <span onclick="toggleDisplay('zen'); displayText();" id="zen">Zen</span>
         </div>
         <!-- Time/Words-->
         <div class="timeword-buttons">
           <div id="times-set" class="buttons-set" style="display: block">
-            <span onclick="selectTime('time1')" id="time1">15</span>
-            <span onclick="selectTime('time2')" id="time2">30</span>
-            <span onclick="selectTime('time3')" id="time3">60</span>
-            <span onclick="selectTime('time4')" id="time4">120</span>
+            <span onclick="selectTime('time1'); displayText();" id="time1">15</span>
+            <span onclick="selectTime('time2'); displayText();" id="time2">30</span>
+            <span onclick="selectTime('time3'); displayText();" id="time3">60</span>
+            <span onclick="selectTime('time4'); displayText();" id="time4">120</span>
           </div>
         </div>
 
         <div id="words-set" class="buttons-set" style="display: none">
-          <span onclick="selectWord('word1')" id="word1">10</span>
-          <span onclick="selectWord('word2')" id="word2">25</span>
-          <span onclick="selectWord('word3')" id="word3">50</span>
-          <span onclick="selectWord('word4')" id="word4">100</span>
+          <span onclick="selectWord('word1'); displayText();" id="word1">10</span>
+          <span onclick="selectWord('word2'); displayText();" id="word2">25</span>
+          <span onclick="selectWord('word3'); displayText();" id="word3">50</span>
+          <span onclick="selectWord('word4'); displayText();" id="word4">100</span>
         </div>
       </nav>
 

@@ -1,5 +1,6 @@
 //Global Var
 let charArray = []
+let wordArray = []
 let curWordIndex = -1;
 
 // Timer
@@ -76,25 +77,58 @@ function stopTimer() {
 // Words
 function word() {
   let wordEl = document.getElementsByClassName('wordFlag')[0].innerText;
-  console.log(wordEl)
   switch (wordEl) {
-    case 10:
-      charArray = randomizeArray(charArray, 10);
+    case '10':
+      wordArray = randomizeArray(wordArray, 10);
       break;
-    case 25:
-      charArray = randomizeArray(charArray, 25);
+    case '25':
+      wordArray = randomizeArray(wordArray, 25);
       break;
-    case 50:
-      charArray = randomizeArray(charArray, 50);
+    case '50':
+      wordArray = randomizeArray(wordArray, 50);
       break;
-    case 100:
-      charArray = randomizeArray(charArray, 100);
+    case '100':
+      wordArray = randomizeArray(wordArray, 100);
       break;
     default:
-      charArray = randomizeArray(charArray, 10);
+      wordArray = randomizeArray(wordArray, 20);
       break;
   }
+  // Adds spaces to array
+  for (let i = 0; i < wordArray.length; i++) {
+    wordArray[i] = wordArray[i] + " "
+  }
+  // Converts to string
+  let words = wordArray.join("");
+  // Split string into characters
+  charArray = words.split("");
+  
+  // Create new spans for each charArray element
+  let dispEl = document.getElementById("text-display");
+  dispEl.innerHTML = "";
+  let count = 0;
+  charArray.forEach((char) => {
+    const charSpan = document.createElement("span");
+    charSpan.textContent = char;
+    charSpan.id = "t" + count;
+    dispEl.appendChild(charSpan);
+    count++;
+  });
 }
+
+// Randomize charArray based on input length
+function randomizeArray(wordArray, length) {
+  // Ensure length is within bounds (between 1 and the length of the array)
+  length = Math.min(length, wordArray.length);
+  let tempArray = []
+  for (let i = 0; i < length; i++) {
+    let randomIndex = Math.floor(Math.random() * wordArray.length);
+    tempArray.push(wordArray[randomIndex]);
+  }
+  console.log(tempArray);
+  return tempArray;
+}
+
 // Quote
 
 // Zen
@@ -136,27 +170,6 @@ function addCursor(spanId) {
   }
 }
 
-// Randomize charArray based on input length
-function randomizeArray(charArray, length) {
-  // Ensure length is within bounds (between 1 and the length of the array)
-  length = Math.min(length, charArray.length);
-
-  // for (let i = 0; i < length; i++) {
-  //   const j = Math.floor(Math.random() * (i + 1));
-
-  //   [charArray[i], charArray[j]] = [charArray[j], charArray[i]]; // Swap
-  // }
-
-  let tempArray = []
-  for (let i = 0; i < length; i++) {
-    let randomIndex = Math.floor(Math.random() * charArray.length);
-    tempArray.push(charArray[randomIndex]);
-  }
-  console.log(tempArray);
-  return tempArray;
-}
-
-
 async function displayText() {
   await wordParse();
   // const wordFl = document.querySelectorAll('.wordFlag');
@@ -169,22 +182,30 @@ async function displayText() {
   // else if (timeFl.length > 0) {
   //   timer();
   // }
-  word();
 
+  // iterateArray(charArray)
+  // Add initial cursor at the start
+  addCursor(0);
+  // const wordFl = document.querySelectorAll('.wordFlag');
+  // if (wordFl.length > 0) {
+  //   word();
+  // }
+  // switch (mode button)
+  word();
+}
+
+function iterateArray(array) {
   let dispEl = document.getElementById("text-display");
   dispEl.innerHTML = "";
   let count = 0;
-  charArray.forEach((char) => {
+  array.forEach((char) => {
     const charSpan = document.createElement("span");
     charSpan.textContent = char;
     charSpan.id = "t" + count;
     dispEl.appendChild(charSpan);
     count++;
   });
-  // Add initial cursor at the start
-  addCursor(0);
 }
-
 
 document.addEventListener("keydown", function (event) {
   const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
@@ -217,6 +238,9 @@ function inputCheck(event) {
   startTimer();
 
   if (!event.data && event.inputType !== "deleteContentBackward") return;
+  console.log("inside inputCheck(): " + charArray)
+  console.log("inside inputCheck(): " + charArray[curWordIndex])
+
   if (curWordIndex < 0 || curWordIndex >= charArray.length) return;
 
   let dispEl = document.getElementById("t" + curWordIndex);
@@ -225,6 +249,7 @@ function inputCheck(event) {
 
   if (charArray[curWordIndex] === event.data) {
     dispEl.style.color = "lightgreen";
+    console.log(dispEl)
   } else {
     if (charArray[curWordIndex] === " ") {
       dispEl.style.backgroundColor = "indianred";
@@ -278,9 +303,10 @@ function showEnd() {
 }
 
 async function wordParse() {
-  const responses = await fetch('/assets/samples/words.txt')
-  const data = await responses.text()
-  charArray = data.split("")
+  const responses = await fetch('/assets/samples/words.txt');
+  const data = await responses.text();
+  wordArray = data.split(" ");
+  charArray = data.split("");
 
 }
 
