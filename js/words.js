@@ -13,36 +13,36 @@ let count = 0;
 let timerInterval;
 displayText();
 
-function timer() {
-  let countDown = document.getElementsByClassName('timeFlag')[0].innerText;
-  console.log(countDown)
+// function timer() {
+//   let countDown = document.getElementsByClassName('timeFlag')[0].innerText;
+//   console.log(countDown)
 
-  while (countDown > 0) {
-    showTime(countDown);
-    countDown--;
-  }
-    // if (typingStarted && !typingDone) {
-    //   count++;
+//   while (countDown > 0) {
+//     showTime(countDown);
+//     countDown--;
+//   }
+//     // if (typingStarted && !typingDone) {
+//     //   count++;
 
-    //   // Update seconds and minutes based on count
-    //   if (count === 100) {
-    //       second--;
-    //       count = 0;
-    //   }
-    //   if (second === 60) {
-    //       minute--;
-    //       second = 0;
-    //   }
+//     //   // Update seconds and minutes based on count
+//     //   if (count === 100) {
+//     //       second--;
+//     //       count = 0;
+//     //   }
+//     //   if (second === 60) {
+//     //       minute--;
+//     //       second = 0;
+//     //   }
 
-    //   // Format time values as two-digit strings
-    //   let minString = minute < 10 ? "0" + minute : minute;
-    //   let secString = second < 10 ? "0" + second : second;
+//     //   // Format time values as two-digit strings
+//     //   let minString = minute < 10 ? "0" + minute : minute;
+//     //   let secString = second < 10 ? "0" + second : second;
 
-    //   // Update HTML content
-    //   document.getElementById("minutes").innerHTML = minString;
-    //   document.getElementById("seconds").innerHTML = secString;
-    // }
-}
+//     //   // Update HTML content
+//     //   document.getElementById("minutes").innerHTML = minString;
+//     //   document.getElementById("seconds").innerHTML = secString;
+//     // }
+// }
 
 
 function showTime(countDown) {
@@ -54,7 +54,7 @@ function showTime(countDown) {
   let minString = minutes < 10 ? "0" + minutes : minutes;
   let secString = seconds < 10 ? "0" + seconds : seconds;
   // Display the formatted time
-  console.log(`${minString}:${secString}`);
+  // console.log(`${minString}:${secString}`);
   // Optional: Update an HTML element if needed
   document.getElementById("minutes").innerText = minString;
   document.getElementById("seconds").innerText = secString;
@@ -95,7 +95,7 @@ function word() {
       break;
   }
   // Adds spaces to array
-  for (let i = 0; i < wordArray.length; i++) {
+  for (let i = 0; i < wordArray.length - 1; i++) {
     wordArray[i] = wordArray[i] + " "
   }
   // Converts to string
@@ -125,7 +125,6 @@ function randomizeArray(wordArray, length) {
     let randomIndex = Math.floor(Math.random() * wordArray.length);
     tempArray.push(wordArray[randomIndex]);
   }
-  console.log(tempArray);
   return tempArray;
 }
 
@@ -235,11 +234,9 @@ function inputCheck(event) {
   if (allDone) return;
 
   // Start timer when the user starts typing
-  startTimer();
+  // startTimer();
 
   if (!event.data && event.inputType !== "deleteContentBackward") return;
-  console.log("inside inputCheck(): " + charArray)
-  console.log("inside inputCheck(): " + charArray[curWordIndex])
 
   if (curWordIndex < 0 || curWordIndex >= charArray.length) return;
 
@@ -249,7 +246,6 @@ function inputCheck(event) {
 
   if (charArray[curWordIndex] === event.data) {
     dispEl.style.color = "lightgreen";
-    console.log(dispEl)
   } else {
     if (charArray[curWordIndex] === " ") {
       dispEl.style.backgroundColor = "indianred";
@@ -264,7 +260,7 @@ function checkEnd(event) {
   console.log("length: " + (charArray.length - 1));
   
   let dispEl = document.getElementById("t" + curWordIndex);
-
+   
   // Case Correct
   if (curWordIndex === (charArray.length - 1) && dispEl.style.color === "lightgreen") {
     console.log("Reached correct case");
@@ -272,7 +268,7 @@ function checkEnd(event) {
   }
 
   // Case Incorrect
-  if (curWordIndex >= (charArray.length - 1) && event.data === " ") {
+  else if (curWordIndex >= (charArray.length - 1) && event.data === " ") {
     console.log("Reached incorrect case");
     console.log(event.key);
     showEnd();
@@ -280,8 +276,8 @@ function checkEnd(event) {
 }
 
 function showEnd() {
-  allDone = true;
-  stopTimer();
+  if (allDone) return;
+  // stopTimer();
 
   let bg = document.createElement("div");
   bg.style.backgroundColor = "black";
@@ -298,8 +294,9 @@ function showEnd() {
 
   // Fade the overlay in after a slight delay
   setTimeout(() => {
-    bg.style.opacity = "0.8";
+    bg.style.opacity = "0.2";
   }, 10); // Small delay to allow the transition to work
+  allDone = true;
 }
 
 async function wordParse() {

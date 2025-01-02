@@ -4,7 +4,7 @@ function toggleDisplay(clickedId) {
     const times = document.getElementById('times-set');
     const words = document.getElementById('words-set');
     const quote = document.getElementById('quote'); // For color change
-    const zen = document.getElementById('zen');   // For color change
+    const zen = document.getElementById('zen'); // For color change
     
     const containers = {
       'times': times,
