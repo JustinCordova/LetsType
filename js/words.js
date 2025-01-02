@@ -106,7 +106,7 @@ function zen() {
   while(running){
     let data = document.getElementById("typing-input");
     charArray.push(data)
-    if (length(charArray)) > 100 {
+    if (length(charArray) > 100) {
       running = false;
     }
   }
