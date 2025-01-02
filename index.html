@@ -9,15 +9,24 @@
   </head>
   <body>
     <main>
-      <h1 class="title">LetsType</h1>
+      <h1 class="title">
+        <div><img src="assets/img/LetsType.jpg" width="100" /></div>
+        <p class="letsType">LetsType</p>
+      </h1>
       <!--<div style="display: flex; justify-content: center; align-items: center; height: 10%; padding: 1em 1em;">
         <img src="assets/img/lepreg.jpeg" alt="lebron" width="500" height="100" style="padding: 10px 10px;" />
       </div>-->
-      
+
       <!-- Taskbar -->
       <nav class="taskbar">
         <div class="mode-buttons">
-          <span onclick="toggleDisplay('times')" id="times" class="active" style="color: #f7768e;">Time</span>
+          <span
+            onclick="toggleDisplay('times')"
+            id="times"
+            class="active"
+            style="color: #f7768e"
+            >Time</span
+          >
           <span onclick="toggleDisplay('words')" id="words">Words</span>
           <span onclick="toggleDisplay('quote')" id="quote">Quote</span>
           <span onclick="toggleDisplay('zen')" id="zen">Zen</span>
@@ -32,14 +41,18 @@
           </div>
         </div>
 
-          <div id="words-set" class="buttons-set" style="display: none">
-            <span onclick="selectWord('word1')" id="word1">10</span>
-            <span onclick="selectWord('word2')" id="word2">25</span>
-            <span onclick="selectWord('word3')" id="word3">50</span>
-            <span onclick="selectWord('word4')" id="word4">100</span>
-          </div>
-        </nav>
+        <div id="words-set" class="buttons-set" style="display: none">
+          <span onclick="selectWord('word1')" id="word1">10</span>
+          <span onclick="selectWord('word2')" id="word2">25</span>
+          <span onclick="selectWord('word3')" id="word3">50</span>
+          <span onclick="selectWord('word4')" id="word4">100</span>
+        </div>
+      </nav>
 
+      <!-- Timer -->
+      <span class="timer" id="timer" oninput="timer()">
+        <span id="minutes">00</span>:<span id="seconds">00</span>
+      </span>
       <!-- Restart + Language-->
       <!--
       <div class="restart-icon">
@@ -56,21 +69,18 @@
         <!-- Dynamically Add -->
         <!-- User Input -->
         <input
-        type="text"
-        autofocus
-        class="typing-input"
-        autocomplete="off"
-        style="border: none; background: transparent; color: purple;"
-        oninput="inputCheck(event); checkEnd(event);"
+          type="text"
+          autofocus
+          class="typing-input"
+          autocomplete="off"
+          style="border: none; background: transparent; color: purple"
+          oninput="inputCheck(event); checkEnd(event);"
         />
       </div>
-
-      <!-- Timer -->
-
     </main>
   </body>
   <footer>
-    <p>Made by LeFamily (LeDema, LeCordova, LeLabit, and LeAndrew (Soon))</p>
+    <p>Made by LeFamily (LeDema, LeCordova, LeLabit, LeChen, and LeAndrew)</p>
     <p>All rights reserved. &copy;</p>
   </footer>
   <script src="js/taskbar.js"></script>

@@ -1,6 +1,51 @@
-const sampleText = "The.";
-const charArray = sampleText.split("");
+//Global Var
+let charArray = []
 let curWordIndex = -1;
+let allDone = false;
+let typingStarted = false;
+let typingDone = false;
+let minute = 0;
+let second = 0;
+let count = 0;
+let timerInterval; // Stores the interval ID for the timer
+
+function timer() {
+  if (typingStarted && !typingDone) {
+    count++;
+
+    // Update seconds and minutes based on count
+    if (count === 100) {
+        second++;
+        count = 0;
+    }
+    if (second === 60) {
+        minute++;
+        second = 0;
+    }
+
+    // Format time values as two-digit strings
+    let minString = minute < 10 ? "0" + minute : minute;
+    let secString = second < 10 ? "0" + second : second;
+
+    // Update HTML content
+    document.getElementById("minutes").innerHTML = minString;
+    document.getElementById("seconds").innerHTML = secString;
+  }
+}
+
+// Starts the timer when typing begins
+function startTimer() {
+  if (!typingStarted) {
+    typingStarted = true;
+    timerInterval = setInterval(timer, 10); // 10 ms interval
+  }
+}
+
+// Stops the timer when typing is done
+function stopTimer() {
+  typingDone = true;
+  clearInterval(timerInterval);
+}
 
 // Blinking Cursor
 function addCursor(spanId) {
@@ -19,7 +64,12 @@ function addCursor(spanId) {
   }
 }
 
-function displayText() {
+function textRand() {
+  vincent
+}
+
+async function displayText() {
+  await wordParse();
   let dispEl = document.getElementById("text-display");
   dispEl.innerHTML = "";
   let count = 0;
@@ -33,6 +83,7 @@ function displayText() {
   // Add initial cursor at the start
   addCursor(0);
 }
+
 
 document.addEventListener("keydown", function (event) {
   const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
@@ -59,6 +110,11 @@ document.addEventListener("keydown", function (event) {
 });
 
 function inputCheck(event) {
+  if (allDone) return;
+
+  // Start timer when the user starts typing
+  startTimer();
+
   if (!event.data && event.inputType !== "deleteContentBackward") return;
   if (curWordIndex < 0 || curWordIndex >= charArray.length) return;
 
@@ -80,7 +136,7 @@ function checkEnd(event) {
   console.log("index: " + curWordIndex);
   console.log("type of length: " + typeof (charArray.length - 1));
   console.log("length: " + (charArray.length - 1));
-
+  
   let dispEl = document.getElementById("t" + curWordIndex);
 
   // Case Correct
@@ -97,10 +153,12 @@ function checkEnd(event) {
   }
 }
 
-
 displayText();
 
 function showEnd() {
+  allDone = true;
+  stopTimer();
+
   let bg = document.createElement("div");
   bg.style.backgroundColor = "black";
   bg.style.position = "fixed";
@@ -118,4 +176,11 @@ function showEnd() {
   setTimeout(() => {
     bg.style.opacity = "0.8";
   }, 10); // Small delay to allow the transition to work
+}
+
+async function wordParse() {
+  const responses = await fetch('/assets/samples/words.txt')
+  const data = await responses.text()
+  charArray = data.split("")
+
 }

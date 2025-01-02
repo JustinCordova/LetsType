@@ -37,14 +37,17 @@ footer p {
 /* Title Styling*/
 .title {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  
+}
+.letsType {
   justify-content: center;
   align-items: center;
-  width: 100%;
   text-align: center;
+  margin: 0 auto;
   padding: 1rem 0;
   margin-top: 0px;
-  font-size: 3em;
+  font-size: 2em;
   color: #f7768e;
 }
 
@@ -116,7 +119,7 @@ footer p {
 
 /* Typing Styling */
 .typing-container {
-  padding: 50px 80px;
+  padding: 0px 80px;
   display: flex;
   flex-direction: column;
   max-width: 100%;
@@ -173,4 +176,16 @@ footer p {
     gap: 16px;
     font-size: 16px;
   }
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  padding: 1rem 0 0.5rem 0;
+  margin-top: 0px;
+  font-size: 2em;
+  color: #f7768e;
 }
