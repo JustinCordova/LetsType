@@ -76,7 +76,7 @@ function inputCheck(event) {
   }
 }
 
-function checkEnd() {
+function checkEnd(event) {
   console.log("index: " + curWordIndex);
   console.log("type of length: " + typeof (charArray.length - 1));
   console.log("length: " + (charArray.length - 1));
@@ -90,7 +90,7 @@ function checkEnd() {
   }
 
   // Case Incorrect
-  if (curWordIndex >= (charArray.length - 1) && event.key === "Space") {
+  if (curWordIndex >= (charArray.length - 1) && event.data === " ") {
     console.log("Reached incorrect case");
     console.log(event.key);
     showEnd();
