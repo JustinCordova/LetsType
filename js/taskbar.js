@@ -1,5 +1,3 @@
-// import { timeConversion } from "./words.js";
-
 function toggleDisplay(clickedId) {
     // Get all the button elements and their corresponding content containers
     const buttons = document.querySelectorAll('.mode-buttons span');

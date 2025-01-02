@@ -43,7 +43,9 @@ function timer() {
     // }
 }
 
-export function timeConversion(totalSeconds) {
+
+function showTime(countDown) {
+  let totalSeconds = parseInt(countDown, 10);
   // Calculate minutes and seconds
   let minutes = Math.floor(totalSeconds / 60);
   let seconds = totalSeconds % 60;
@@ -55,11 +57,6 @@ export function timeConversion(totalSeconds) {
   // Optional: Update an HTML element if needed
   document.getElementById("minutes").innerText = minString;
   document.getElementById("seconds").innerText = secString;
-}
-
-function showTime(countDown) {
-  let totalSeconds = parseInt(countDown, 10);
-  timeConversion(totalSeconds)
 }
 
 // Starts the timer when typing begins
@@ -78,26 +75,25 @@ function stopTimer() {
 
 // Words
 function word() {
-  let wordEl = document.getElementsByClassName('wordFlag')[0].innerText
+  let wordEl = document.getElementsByClassName('wordFlag')[0].innerText;
+  console.log(wordEl)
   switch (wordEl) {
     case 10:
-      tempArr = randomizeArray(charArray, 10);
+      charArray = randomizeArray(charArray, 10);
       break;
     case 25:
-      tempArr = randomizeArray(charArray, 25);
+      charArray = randomizeArray(charArray, 25);
       break;
     case 50:
-      tempArr = randomizeArray(charArray, 50);
+      charArray = randomizeArray(charArray, 50);
       break;
     case 100:
-      tempArr = randomizeArray(charArray, 100);
+      charArray = randomizeArray(charArray, 100);
       break;
     default:
-      tempArr = randomizeArray(charArray, 10);
+      charArray = randomizeArray(charArray, 10);
       break;
   }
-  tempArr = randomizeArray(charArray, 10);
-  charArray = tempArr;
 }
 // Quote
 
@@ -106,8 +102,14 @@ function zen() {
   let dispEl = document.getElementById("text-display");
   dispEl.innerHTML = "";
   charArray = [];
-  let data = document.getElementById("typing-input");
-
+  running = true;
+  while(running){
+    let data = document.getElementById("typing-input");
+    charArray.push(data)
+    if (length(charArray)) > 100 {
+      running = false;
+    }
+  }
   
   
   
@@ -139,12 +141,19 @@ function randomizeArray(charArray, length) {
   // Ensure length is within bounds (between 1 and the length of the array)
   length = Math.min(length, charArray.length);
 
-  for (let i = 0; i < length; i++) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [charArray[i], charArray[j]] = [charArray[j], charArray[i]]; // Swap
-  }
+  // for (let i = 0; i < length; i++) {
+  //   const j = Math.floor(Math.random() * (i + 1));
 
-  return charArray;
+  //   [charArray[i], charArray[j]] = [charArray[j], charArray[i]]; // Swap
+  // }
+
+  let tempArray = []
+  for (let i = 0; i < length; i++) {
+    let randomIndex = Math.floor(Math.random() * charArray.length);
+    tempArray.push(charArray[randomIndex]);
+  }
+  console.log(tempArray);
+  return tempArray;
 }
 
 
@@ -160,6 +169,7 @@ async function displayText() {
   // else if (timeFl.length > 0) {
   //   timer();
   // }
+  word();
 
   let dispEl = document.getElementById("text-display");
   dispEl.innerHTML = "";
