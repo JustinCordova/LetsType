@@ -5,6 +5,10 @@ function toggleDisplay(clickedId) {
     const words = document.getElementById('words-set');
     const quote = document.getElementById('quote'); // For color change
     const zen = document.getElementById('zen'); // For color change
+    const timer = document.getElementById('timer');
+    const numerator = document.getElementById('numerator');
+    const denominator = document.getElementById('denominator');
+    const backslash = document.getElementById('backslash');
     
     const containers = {
       'times': times,
@@ -21,10 +25,18 @@ function toggleDisplay(clickedId) {
       // Hide # of words if Times button is clicked
       if ((clickedId === 'times')) {
         words.style.display = 'none';
+        timer.style.display = 'block'
+        numerator.style.display = 'none';
+        denominator.style.display = 'none';
+        backslash.style.display = 'none';
       } 
       // Hide the possible times if Words is clicked
       else if ((clickedId === 'words')) {
         times.style.display = 'none';
+        timer.style.display = 'none';
+        numerator.style.display = 'block';
+        denominator.style.display = 'block';
+        backslash.style.display = 'block';
       } 
       // Hide the times and # of words if Quote or Zen is clicked
       else {

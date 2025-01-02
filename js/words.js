@@ -2,6 +2,8 @@
 let charArray = []
 let wordArray = []
 let curWordIndex = -1;
+let wordIndex = 0;
+let wordDict = {};
 
 // Timer
 let allDone = false;
@@ -44,6 +46,22 @@ displayText();
 //     // }
 // }
 
+function wordCount() {
+  
+  let denom = document.getElementsByClassName('wordFlag')[0].innerText;
+  console.log(denom)
+  console.log(wordDict)
+  let numer;
+  if (Number.isNaN(wordDict[curWordIndex] + 1)) {
+    console.log("inside nan")
+    numer = 0;
+  } else {
+    numer = wordDict[curWordIndex] + 1;
+  }
+  console.log(numer)
+  document.getElementById("denominator").innerText= denom;
+  document.getElementById("numerator").innerText = numer;
+}
 
 function showTime(countDown) {
   let totalSeconds = parseInt(countDown, 10);
@@ -102,6 +120,7 @@ function word() {
   let words = wordArray.join("");
   // Split string into characters
   charArray = words.split("");
+  makeIndexes();
   
   // Create new spans for each charArray element
   let dispEl = document.getElementById("text-display");
@@ -116,6 +135,27 @@ function word() {
   });
 }
 
+function resetWordCount() {
+  wordDict = {};
+  wordIndex = 0;
+  curWordIndex = -1;
+}
+
+function makeIndexes() {
+  let charIndex = charArray;
+
+  charIndex.forEach((char, index) => {
+    console.log("Character: " + char + ", Index: " + index);
+    if (char !== " ") { // If the character is not a space
+      wordDict[index] = wordIndex; // Map the character to the current word index
+    } else {
+      wordDict[index] = wordIndex
+      wordIndex++;
+      console.log(wordIndex) // Increment the word index when a space is encountered
+    }
+  });
+  console.log("wordIndex: " + wordIndex);
+}
 // Randomize charArray based on input length
 function randomizeArray(wordArray, length) {
   // Ensure length is within bounds (between 1 and the length of the array)
@@ -255,10 +295,6 @@ function inputCheck(event) {
 }
 
 function checkEnd(event) {
-  console.log("index: " + curWordIndex);
-  console.log("type of length: " + typeof (charArray.length - 1));
-  console.log("length: " + (charArray.length - 1));
-  
   let dispEl = document.getElementById("t" + curWordIndex);
    
   // Case Correct
@@ -304,7 +340,6 @@ async function wordParse() {
   const data = await responses.text();
   wordArray = data.split(" ");
   charArray = data.split("");
-
 }
 
 function autoFocus() {

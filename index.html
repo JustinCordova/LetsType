@@ -15,8 +15,7 @@
         </div>
         <h1 class="letsType">LetsType</h1>
       </div>
-      
-    
+
       <!--<div style="display: flex; justify-content: center; align-items: center; height: 10%; padding: 1em 1em;">
         <img src="assets/img/lepreg.jpeg" alt="lebron" width="500" height="100" style="padding: 10px 10px;" />
       </div>-->
@@ -32,24 +31,60 @@
             >Time</span
           >
           <span onclick="toggleDisplay('words')" id="words">Words</span>
-          <span onclick="toggleDisplay('quote'); displayText();" id="quote">Quote</span>
-          <span onclick="toggleDisplay('zen'); displayText();" id="zen">Zen</span>
+          <span onclick="toggleDisplay('quote'); displayText();" id="quote"
+            >Quote</span
+          >
+          <span onclick="toggleDisplay('zen'); displayText();" id="zen"
+            >Zen</span
+          >
         </div>
         <!-- Time/Words-->
         <div class="timeword-buttons">
           <div id="times-set" class="buttons-set" style="display: block">
-            <span onclick="selectTime('time1'); displayText(); autoFocus();" id="time1">15</span>
-            <span onclick="selectTime('time2'); displayText(); autoFocus();" id="time2">30</span>
-            <span onclick="selectTime('time3'); displayText(); autoFocus();" id="time3">60</span>
-            <span onclick="selectTime('time4'); displayText(); autoFocus();" id="time4">120</span>
+            <span
+              onclick="selectTime('time1'); displayText(); autoFocus();"
+              id="time1"
+              >15</span
+            >
+            <span
+              onclick="selectTime('time2'); displayText(); autoFocus();"
+              id="time2"
+              >30</span
+            >
+            <span
+              onclick="selectTime('time3'); displayText(); autoFocus();"
+              id="time3"
+              >60</span
+            >
+            <span
+              onclick="selectTime('time4'); displayText(); autoFocus();"
+              id="time4"
+              >120</span
+            >
           </div>
         </div>
 
         <div id="words-set" class="buttons-set" style="display: none">
-          <span onclick="selectWord('word1'); displayText(); autoFocus();" id="word1">10</span>
-          <span onclick="selectWord('word2'); displayText(); autoFocus();" id="word2">25</span>
-          <span onclick="selectWord('word3'); displayText(); autoFocus();" id="word3">50</span>
-          <span onclick="selectWord('word4'); displayText(); autoFocus();" id="word4">100</span>
+          <span
+            onclick="selectWord('word1'); displayText(); autoFocus(); resetWordCount(); wordCount();"
+            id="word1"
+            >10</span
+          >
+          <span
+            onclick="selectWord('word2'); displayText(); autoFocus(); resetWordCount(); wordCount();"
+            id="word2"
+            >25</span
+          >
+          <span
+            onclick="selectWord('word3'); displayText(); autoFocus(); resetWordCount(); wordCount();"
+            id="word3"
+            >50</span
+          >
+          <span
+            onclick="selectWord('word4'); displayText(); autoFocus(); resetWordCount(); wordCount();"
+            id="word4"
+            >100</span
+          >
         </div>
       </nav>
 
@@ -57,7 +92,13 @@
       <span class="timer" id="timer" oninput="timer()">
         <span id="minutes">00</span>:<span id="seconds">00</span>
       </span>
-      <!-- Restart + Language-->
+      <!-- WordCount -->
+      <span class="wordCount" id="wordCount">
+        <span id="numerator">0</span>
+        <span id="backslash">/</span>
+        <span id="denominator">10</span>
+      </span>
+      <!-- Restart-->
       <!--
       <div class="restart-icon">
         <button onclick="func()" id="restart">Restart</button>
@@ -75,11 +116,11 @@
         <input
           type="text"
           autofocus
-          id ="typing-input"
+          id="typing-input"
           class="typing-input"
           autocomplete="off"
           style="border: none; background: transparent; color: purple"
-          oninput="inputCheck(event); checkEnd(event);"
+          oninput="inputCheck(event); checkEnd(event); wordCount();"
         />
       </div>
     </main>
