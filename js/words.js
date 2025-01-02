@@ -310,3 +310,6 @@ async function wordParse() {
 
 }
 
+function autoFocus() {
+  document.getElementById("typing-input").focus();
+}
