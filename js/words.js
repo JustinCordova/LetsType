@@ -5,6 +5,8 @@ let curWordIndex = -1;
 let wordIndex = 0;
 let wordDict = {};
 
+displayText();
+
 // Timer
 let allDone = false;
 let typingStarted = false;
@@ -13,7 +15,6 @@ let minute = 0;
 let second = 0;
 let count = 0;
 let timerInterval;
-displayText();
 
 // function timer() {
 //   let countDown = document.getElementsByClassName('timeFlag')[0].innerText;
@@ -171,25 +172,19 @@ function randomizeArray(wordArray, length) {
 // Quote
 
 // Zen
-function zen() {
-  let dispEl = document.getElementById("text-display");
-  dispEl.innerHTML = "";
-  charArray = [];
-  running = true;
-  while(running){
-    let data = document.getElementById("typing-input");
-    charArray.push(data)
-    if (length(charArray) > 100) {
-      running = false;
-    }
-  }
-  
-  
-  
-  
-
-
-}
+// function zen() {
+//   let dispEl = document.getElementById("text-display");
+//   dispEl.innerHTML = "";
+//   charArray = [];
+//   running = true;
+//   while(running){
+//     let data = document.getElementById("typing-input");
+//     charArray.push(data)
+//     if (length(charArray) > 100) {
+//       running = false;
+//     }
+//   }
+// }
 
 
 // Blinking Cursor
@@ -211,26 +206,12 @@ function addCursor(spanId) {
 
 async function displayText() {
   await wordParse();
-  // const wordFl = document.querySelectorAll('.wordFlag');
-  // const timeFl = document.querySelectorAll('.wordFlag');
-  // const quoteFl = document.querySelectorAll('.wordFlag');
-  // const zenEl = document.querySelectorAll('.wordFlag');
-  // if (wordFl.length > 0) {
-  //   word();
-  // }
-  // else if (timeFl.length > 0) {
-  //   timer();
-  // }
-
-  // iterateArray(charArray)
   // Add initial cursor at the start
   addCursor(0);
-  // const wordFl = document.querySelectorAll('.wordFlag');
-  // if (wordFl.length > 0) {
-  //   word();
-  // }
-  // switch (mode button)
-  word();
+  const wordFl = document.querySelectorAll('.wordFlag');
+   if (wordFl.length > 0) {
+     word();
+  }
 }
 
 function iterateArray(array) {
