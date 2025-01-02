@@ -1,6 +1,6 @@
 //Global Var
-let charArray = []
-let wordArray = []
+let charArray = [];
+let wordArray = [];
 let curWordIndex = -1;
 let wordIndex = 0;
 let wordDict = {};
@@ -47,23 +47,6 @@ let timerInterval;
 //     // }
 // }
 
-function wordCount() {
-  
-  let denom = document.getElementsByClassName('wordFlag')[0].innerText;
-  console.log(denom)
-  console.log(wordDict)
-  let numer;
-  if (Number.isNaN(wordDict[curWordIndex] + 1)) {
-    console.log("inside nan")
-    numer = 0;
-  } else {
-    numer = wordDict[curWordIndex] + 1;
-  }
-  console.log(numer)
-  document.getElementById("denominator").innerText= denom;
-  document.getElementById("numerator").innerText = numer;
-}
-
 function showTime(countDown) {
   let totalSeconds = parseInt(countDown, 10);
   // Calculate minutes and seconds
@@ -95,18 +78,18 @@ function stopTimer() {
 
 // Words
 function word() {
-  let wordEl = document.getElementsByClassName('wordFlag')[0].innerText;
+  let wordEl = document.getElementsByClassName("wordFlag")[0].innerText;
   switch (wordEl) {
-    case '10':
+    case "10":
       wordArray = randomizeArray(wordArray, 10);
       break;
-    case '25':
+    case "25":
       wordArray = randomizeArray(wordArray, 25);
       break;
-    case '50':
+    case "50":
       wordArray = randomizeArray(wordArray, 50);
       break;
-    case '100':
+    case "100":
       wordArray = randomizeArray(wordArray, 100);
       break;
     default:
@@ -115,14 +98,14 @@ function word() {
   }
   // Adds spaces to array
   for (let i = 0; i < wordArray.length - 1; i++) {
-    wordArray[i] = wordArray[i] + " "
+    wordArray[i] = wordArray[i] + " ";
   }
   // Converts to string
   let words = wordArray.join("");
   // Split string into characters
   charArray = words.split("");
   makeIndexes();
-  
+
   // Create new spans for each charArray element
   let dispEl = document.getElementById("text-display");
   dispEl.innerHTML = "";
@@ -136,32 +119,50 @@ function word() {
   });
 }
 
+function makeIndexes() {
+  let charIndex = charArray;
+
+  charIndex.forEach((char, index) => {
+    console.log("Character: " + char + ", Index: " + index);
+    if (char !== " ") {
+      // If the character is not a space
+      wordDict[index] = wordIndex; // Map the character to the current word index
+    } else {
+      wordDict[index] = wordIndex;
+      wordIndex++;
+      console.log(wordIndex); // Increment the word index when a space is encountered
+    }
+  });
+  console.log("wordIndex: " + wordIndex);
+}
+
+function wordCount() {
+  let denom = document.getElementsByClassName("wordFlag")[0].innerText;
+  console.log(denom);
+  console.log(wordDict);
+  let numer;
+  if (Number.isNaN(wordDict[curWordIndex] + 1)) {
+    console.log("inside nan");
+    numer = 0;
+  } else {
+    numer = wordDict[curWordIndex] + 1;
+  }
+  console.log(numer);
+  document.getElementById("denominator").innerText = denom;
+  document.getElementById("numerator").innerText = numer;
+}
+
 function resetWordCount() {
   wordDict = {};
   wordIndex = 0;
   curWordIndex = -1;
 }
 
-function makeIndexes() {
-  let charIndex = charArray;
-
-  charIndex.forEach((char, index) => {
-    console.log("Character: " + char + ", Index: " + index);
-    if (char !== " ") { // If the character is not a space
-      wordDict[index] = wordIndex; // Map the character to the current word index
-    } else {
-      wordDict[index] = wordIndex
-      wordIndex++;
-      console.log(wordIndex) // Increment the word index when a space is encountered
-    }
-  });
-  console.log("wordIndex: " + wordIndex);
-}
 // Randomize charArray based on input length
 function randomizeArray(wordArray, length) {
   // Ensure length is within bounds (between 1 and the length of the array)
   length = Math.min(length, wordArray.length);
-  let tempArray = []
+  let tempArray = [];
   for (let i = 0; i < length; i++) {
     let randomIndex = Math.floor(Math.random() * wordArray.length);
     tempArray.push(wordArray[randomIndex]);
@@ -172,45 +173,73 @@ function randomizeArray(wordArray, length) {
 // Quote
 
 // Zen
-// function zen() {
-//   let dispEl = document.getElementById("text-display");
-//   dispEl.innerHTML = "";
-//   charArray = [];
-//   running = true;
-//   while(running){
-//     let data = document.getElementById("typing-input");
-//     charArray.push(data)
-//     if (length(charArray) > 100) {
-//       running = false;
-//     }
-//   }
-// }
+function zen() {
+  let doneZen = false; // Tracks if Zen mode is complete
+  const dispEl = document.getElementById("text-display");
+  const zenEl = document.getElementById("zen-input");
+  const inpEl = document.getElementById("typing-input");
+  console.log("In Zen");
+  inpEl.style.display = "none";
+  zenEl.style.display = "block";
+  zenEl.style.opacity = "0";
+  zenEl.style.zIndex = "999";
+  zenFocus();
 
 
-// Blinking Cursor
-function addCursor(spanId) {
-  // Remove any existing cursors
-  const existingCursor = document.querySelector('.cursor');
-  if (existingCursor) {
-    existingCursor.remove();
-  }
-  
-  // Create and add new cursor
-  const cursor = document.createElement('span');
-  cursor.className = 'cursor';
-  const targetSpan = document.getElementById('t' + spanId);
-  if (targetSpan) {
-    targetSpan.insertAdjacentElement('beforebegin', cursor);
-  }
+  // Clear initial display
+  dispEl.innerHTML = "";
+
+  // Add event listener for keydown
+  zenEl.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && event.shiftKey) {
+      // Prevent default behavior
+      event.preventDefault();
+
+      // End Zen mode
+      doneZen = true;
+      showEnd(); // Call your custom end function
+      zenEl.value = ""; // Clear input box
+    }
+  });
+  console.log("hello");
+  // Add event listener for real-time input
+  zenEl.addEventListener("input", function () {
+    if (!doneZen) {
+      // Update display with current input, replacing spaces and newlines
+      dispEl.innerHTML = zenEl.value.replace(/\n/g, "<br>");
+    }
+  });
 }
 
+async function wordParse() {
+  const responses = await fetch("assets/samples/words.txt");
+  const data = await responses.text();
+  wordArray = data.split(" ");
+  charArray = data.split("");
+}
+
+// Displays text for timer, words, and quotes
 async function displayText() {
+  let dispEl = document.createElement("display-text");
+  dispEl.innerHTML = "";
   await wordParse();
   // Add initial cursor at the start
   addCursor(0);
-  const wordFl = document.querySelectorAll('.wordFlag');
-   if (wordFl.length > 0) {
-     word();
+  const wordFl = document.querySelectorAll(".wordFlag");
+  const timeFl = document.querySelectorAll(".timeFlag");
+  const quoteFl = document.querySelectorAll(".quoteFl");
+  const zenFl = document.querySelectorAll(".zenFl");
+  if (wordFl.length > 0) {
+    word();
+  } else if (timeFl.length > 0) {
+    timer();
+  } else if (quoteFl.length > 0) {
+    quote();
+  } else if (zenFl.length > 0) {
+    let dispEl = document.getElementById("text-display");
+    dispEl.innerHTML = "";
+    charArray = [];
+    zen();
   }
 }
 
@@ -228,10 +257,16 @@ function iterateArray(array) {
 }
 
 document.addEventListener("keydown", function (event) {
-  const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
+  const arrowKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
 
   console.log(event.key);
-  if (event.key === "Shift" || event.key === "Alt" || event.key === "Meta"|| event.key === "Escape") return;
+  if (
+    event.key === "Shift" ||
+    event.key === "Alt" ||
+    event.key === "Meta" ||
+    event.key === "Escape"
+  )
+    return;
 
   if (event.key === "Backspace") {
     if (curWordIndex >= 0) {
@@ -275,17 +310,37 @@ function inputCheck(event) {
   }
 }
 
+// Blinking Cursor
+function addCursor(spanId) {
+  // Remove any existing cursors
+  const existingCursor = document.querySelector(".cursor");
+  if (existingCursor) {
+    existingCursor.remove();
+  }
+
+  // Create and add new cursor
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  const targetSpan = document.getElementById("t" + spanId);
+  if (targetSpan) {
+    targetSpan.insertAdjacentElement("beforebegin", cursor);
+  }
+}
+
 function checkEnd(event) {
   let dispEl = document.getElementById("t" + curWordIndex);
-   
+
   // Case Correct
-  if (curWordIndex === (charArray.length - 1) && dispEl.style.color === "lightgreen") {
+  if (
+    curWordIndex === charArray.length - 1 &&
+    dispEl.style.color === "lightgreen"
+  ) {
     console.log("Reached correct case");
     showEnd();
   }
 
   // Case Incorrect
-  else if (curWordIndex >= (charArray.length - 1) && event.data === " ") {
+  else if (curWordIndex >= charArray.length - 1 && event.data === " ") {
     console.log("Reached incorrect case");
     console.log(event.key);
     showEnd();
@@ -316,13 +371,10 @@ function showEnd() {
   allDone = true;
 }
 
-async function wordParse() {
-  const responses = await fetch('assets/samples/words.txt');
-  const data = await responses.text();
-  wordArray = data.split(" ");
-  charArray = data.split("");
-}
-
 function autoFocus() {
   document.getElementById("typing-input").focus();
+}
+
+function zenFocus() {
+  document.getElementById("zen-input").focus();
 }

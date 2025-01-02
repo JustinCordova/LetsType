@@ -30,7 +30,6 @@ function toggleDisplay(clickedId) {
         denominator.style.display = 'none';
         backslash.style.display = 'none';
       } 
-      // Hide the possible times if Words is clicked
       else if ((clickedId === 'words')) {
         times.style.display = 'none';
         timer.style.display = 'none';
@@ -38,6 +37,23 @@ function toggleDisplay(clickedId) {
         denominator.style.display = 'block';
         backslash.style.display = 'block';
       } 
+      else if(clickedId === 'quote') {
+        quote.classList.add('quoteFl');
+        times.style.display = 'none';
+        timer.style.display = 'none';
+        numerator.style.display = 'block';
+        denominator.style.display = 'block';
+        backslash.style.display = 'block';
+        
+      } 
+      else if(clickedId === 'zen') {
+        zen.classList.add('zenFl');
+        times.style.display = 'none';
+        timer.style.display = 'none';
+        numerator.style.display = 'block';
+        denominator.style.display = 'block';
+        backslash.style.display = 'block';
+      }
       // Hide the times and # of words if Quote or Zen is clicked
       else {
         times.style.display = 'none';

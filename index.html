@@ -11,7 +11,7 @@
     <main>
       <div class="title">
         <div class="logo">
-          <img src="assets/img/LetsType.png" width="120" />
+          <img src="assets/img/LetsType.png" width="120" style="border-radius: 20%" />
         </div>
         <h1 class="letsType">LetsType</h1>
       </div>
@@ -34,7 +34,7 @@
           <span onclick="toggleDisplay('quote'); displayText();" id="quote"
             >Quote</span
           >
-          <span onclick="toggleDisplay('zen'); displayText();" id="zen"
+          <span onclick="toggleDisplay('zen'); displayText(); zenFocus();" id="zen"
             >Zen</span
           >
         </div>
@@ -113,6 +113,14 @@
         <span class="text-display" id="text-display"></span>
         <!-- Dynamically Add -->
         <!-- User Input -->
+        <input
+          type="text"
+          id="zen-input"
+          class="zen-input"
+          autocomplete="off"
+          placeholder="TYPE"
+          style="z-index: 1; display: none;"
+        />
         <input
           type="text"
           autofocus
