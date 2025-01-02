@@ -303,7 +303,7 @@ function showEnd() {
 }
 
 async function wordParse() {
-  const responses = await fetch('/assets/samples/words.txt');
+  const responses = await fetch('assets/samples/words.txt');
   const data = await responses.text();
   wordArray = data.split(" ");
   charArray = data.split("");
