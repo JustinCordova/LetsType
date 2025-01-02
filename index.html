@@ -17,12 +17,12 @@
       <!-- Taskbar -->
       <nav class="taskbar">
         <div class="mode-buttons">
-          <span onclick="timeShow()" id="times" class="active" style="color: #f7768e;">Time</span>
-          <span onclick="wordsShow()" id="words">Words</span>
-          <span id="quote">Quote</span>
-          <span id="zen">Zen</span>
+          <span onclick="toggleDisplay('times')" id="times" class="active" style="color: #f7768e;">Time</span>
+          <span onclick="toggleDisplay('words')" id="words">Words</span>
+          <span onclick="toggleDisplay('quote')" id="quote">Quote</span>
+          <span onclick="toggleDisplay('zen')" id="zen">Zen</span>
         </div>
-
+        <!-- Time/Words-->
         <div class="timeword-buttons">
           <div id="times-set" class="buttons-set" style="display: block">
             <span onclick="selectTime('time1')" id="time1">15</span>
@@ -50,13 +50,6 @@
       </div> 
       -->
 
-      <!-- Timer and Stats -->
-      <div id="stats" style="display: none">
-        <p>Time Left: <span id="timer">60</span> seconds</p>
-        <p>Words Per Minute: <span id="wpm">0</span></p>
-        <p>Accuracy: <span id="accuracy">100</span>%</p>
-      </div>
-
       <!-- User Input -->
       <div class="typing-container">
         <span class="text-display" id="text-display"></span>
@@ -68,9 +61,12 @@
         class="typing-input"
         autocomplete="off"
         style="border: none; background: transparent; color: purple;"
-        oninput="inputCheck(event); updateCursor(event)"
+        oninput="inputCheck(event); checkEnd();"
         />
       </div>
+
+      <!-- Timer -->
+
     </main>
   </body>
   <footer>

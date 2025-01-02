@@ -1,7 +1,8 @@
-const sampleText = "The quick brown fox jumps over the lazy dog.";
+const sampleText = "The.";
 const charArray = sampleText.split("");
 let curWordIndex = -1;
 
+// Blinking Cursor
 function addCursor(spanId) {
   // Remove any existing cursors
   const existingCursor = document.querySelector('.cursor');
@@ -34,6 +35,8 @@ function displayText() {
 }
 
 document.addEventListener("keydown", function (event) {
+  const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
+
   console.log(event.key);
   if (event.key === "Shift") return;
 
@@ -47,7 +50,8 @@ document.addEventListener("keydown", function (event) {
     }
   } else if (
     /[a-zA-Z0-9\s\W]/.test(event.key) &&
-    curWordIndex < charArray.length - 1
+    curWordIndex < charArray.length - 1 &&
+    !arrowKeys.includes(event.key)
   ) {
     curWordIndex++;
     addCursor(curWordIndex + 1);
@@ -66,10 +70,52 @@ function inputCheck(event) {
     dispEl.style.color = "lightgreen";
   } else {
     if (charArray[curWordIndex] === " ") {
-      dispEl.style.backgroundColor = "red";
+      dispEl.style.backgroundColor = "indianred";
     }
-    dispEl.style.color = "red";
+    dispEl.style.color = "indianred";
   }
 }
 
+function checkEnd() {
+  console.log("index: " + curWordIndex);
+  console.log("type of length: " + typeof (charArray.length - 1));
+  console.log("length: " + (charArray.length - 1));
+
+  let dispEl = document.getElementById("t" + curWordIndex);
+
+  // Case Correct
+  if (curWordIndex === (charArray.length - 1) && dispEl.style.color === "lightgreen") {
+    console.log("Reached correct case");
+    showEnd();
+  }
+
+  // Case Incorrect
+  if (curWordIndex >= (charArray.length - 1) && event.key === "Space") {
+    console.log("Reached incorrect case");
+    console.log(event.key);
+    showEnd();
+  }
+}
+
+
 displayText();
+
+function showEnd() {
+  let bg = document.createElement("div");
+  bg.style.backgroundColor = "black";
+  bg.style.position = "fixed";
+  bg.style.top = "0";
+  bg.style.left = "0";
+  bg.style.width = "100%";
+  bg.style.height = "100%";
+  bg.style.opacity = "0";
+  bg.style.transition = "opacity 0.5s ease";
+  bg.style.zIndex = "9999"; // Ensure it appears on top
+
+  document.body.appendChild(bg);
+
+  // Fade the overlay in after a slight delay
+  setTimeout(() => {
+    bg.style.opacity = "0.8";
+  }, 10); // Small delay to allow the transition to work
+}
