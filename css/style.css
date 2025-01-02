@@ -37,18 +37,24 @@ footer p {
 /* Title Styling*/
 .title {
   display: flex;
-  flex-direction: row;
-  
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  position: relative;
+  height: 150px;
 }
+
+.logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
 .letsType {
-  justify-content: center;
-  align-items: center;
   text-align: center;
-  margin: 0 auto;
-  padding: 1rem 0;
-  margin-top: 0px;
   font-size: 2em;
   color: #f7768e;
+  margin: 0;
 }
 
 .taskbar {
@@ -74,7 +80,7 @@ footer p {
   display: flex;
   gap: 32px;
   padding: 12px 0;
-  font-size: 18px;
+  font-size: 30px;
   font-weight: 500;
 }
 
@@ -98,12 +104,12 @@ footer p {
 .buttons-set {
   display: flex;
   cursor: pointer;
-  gap: 24px;
+  gap: 25px;
   padding: 10px 10px;
-  font-size: 18px;
+  font-size: 30px;
 }
 
-.button-set span {
+.buttons-set span {
   padding: 6px 12px;
   cursor: pointer;
   transition: all 0.2s ease;

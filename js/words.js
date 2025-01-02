@@ -1,36 +1,65 @@
 //Global Var
 let charArray = []
 let curWordIndex = -1;
+
+// Timer
 let allDone = false;
 let typingStarted = false;
 let typingDone = false;
 let minute = 0;
 let second = 0;
 let count = 0;
-let timerInterval; // Stores the interval ID for the timer
+let timerInterval;
+displayText();
 
 function timer() {
-  if (typingStarted && !typingDone) {
-    count++;
+  let countDown = document.getElementsByClassName('timeFlag')[0].innerText;
+  console.log(countDown)
 
-    // Update seconds and minutes based on count
-    if (count === 100) {
-        second++;
-        count = 0;
-    }
-    if (second === 60) {
-        minute++;
-        second = 0;
-    }
-
-    // Format time values as two-digit strings
-    let minString = minute < 10 ? "0" + minute : minute;
-    let secString = second < 10 ? "0" + second : second;
-
-    // Update HTML content
-    document.getElementById("minutes").innerHTML = minString;
-    document.getElementById("seconds").innerHTML = secString;
+  while (countDown > 0) {
+    showTime(countDown);
+    countDown--;
   }
+    // if (typingStarted && !typingDone) {
+    //   count++;
+
+    //   // Update seconds and minutes based on count
+    //   if (count === 100) {
+    //       second--;
+    //       count = 0;
+    //   }
+    //   if (second === 60) {
+    //       minute--;
+    //       second = 0;
+    //   }
+
+    //   // Format time values as two-digit strings
+    //   let minString = minute < 10 ? "0" + minute : minute;
+    //   let secString = second < 10 ? "0" + second : second;
+
+    //   // Update HTML content
+    //   document.getElementById("minutes").innerHTML = minString;
+    //   document.getElementById("seconds").innerHTML = secString;
+    // }
+}
+
+export function timeConversion(totalSeconds) {
+  // Calculate minutes and seconds
+  let minutes = Math.floor(totalSeconds / 60);
+  let seconds = totalSeconds % 60;
+  // Format as two-digit strings
+  let minString = minutes < 10 ? "0" + minutes : minutes;
+  let secString = seconds < 10 ? "0" + seconds : seconds;
+  // Display the formatted time
+  console.log(`${minString}:${secString}`);
+  // Optional: Update an HTML element if needed
+  document.getElementById("minutes").innerText = minString;
+  document.getElementById("seconds").innerText = secString;
+}
+
+function showTime(countDown) {
+  let totalSeconds = parseInt(countDown, 10);
+  timeConversion(totalSeconds)
 }
 
 // Starts the timer when typing begins
@@ -46,6 +75,47 @@ function stopTimer() {
   typingDone = true;
   clearInterval(timerInterval);
 }
+
+// Words
+function word() {
+  let wordEl = document.getElementsByClassName('wordFlag')[0].innerText
+  switch (wordEl) {
+    case 10:
+      tempArr = randomizeArray(charArray, 10);
+      break;
+    case 25:
+      tempArr = randomizeArray(charArray, 25);
+      break;
+    case 50:
+      tempArr = randomizeArray(charArray, 50);
+      break;
+    case 100:
+      tempArr = randomizeArray(charArray, 100);
+      break;
+    default:
+      tempArr = randomizeArray(charArray, 10);
+      break;
+  }
+  tempArr = randomizeArray(charArray, 10);
+  charArray = tempArr;
+}
+// Quote
+
+// Zen
+function zen() {
+  let dispEl = document.getElementById("text-display");
+  dispEl.innerHTML = "";
+  charArray = [];
+  let data = document.getElementById("typing-input");
+
+  
+  
+  
+  
+
+
+}
+
 
 // Blinking Cursor
 function addCursor(spanId) {
@@ -64,12 +134,33 @@ function addCursor(spanId) {
   }
 }
 
-function textRand() {
-  vincent
+// Randomize charArray based on input length
+function randomizeArray(charArray, length) {
+  // Ensure length is within bounds (between 1 and the length of the array)
+  length = Math.min(length, charArray.length);
+
+  for (let i = 0; i < length; i++) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [charArray[i], charArray[j]] = [charArray[j], charArray[i]]; // Swap
+  }
+
+  return charArray;
 }
+
 
 async function displayText() {
   await wordParse();
+  // const wordFl = document.querySelectorAll('.wordFlag');
+  // const timeFl = document.querySelectorAll('.wordFlag');
+  // const quoteFl = document.querySelectorAll('.wordFlag');
+  // const zenEl = document.querySelectorAll('.wordFlag');
+  // if (wordFl.length > 0) {
+  //   word();
+  // }
+  // else if (timeFl.length > 0) {
+  //   timer();
+  // }
+
   let dispEl = document.getElementById("text-display");
   dispEl.innerHTML = "";
   let count = 0;
@@ -89,7 +180,7 @@ document.addEventListener("keydown", function (event) {
   const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 
   console.log(event.key);
-  if (event.key === "Shift") return;
+  if (event.key === "Shift" || event.key === "Alt" || event.key === "Meta"|| event.key === "Escape") return;
 
   if (event.key === "Backspace") {
     if (curWordIndex >= 0) {
@@ -153,8 +244,6 @@ function checkEnd(event) {
   }
 }
 
-displayText();
-
 function showEnd() {
   allDone = true;
   stopTimer();
@@ -184,3 +273,4 @@ async function wordParse() {
   charArray = data.split("")
 
 }
+

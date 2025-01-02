@@ -1,3 +1,5 @@
+// import { timeConversion } from "./words.js";
+
 function toggleDisplay(clickedId) {
     // Get all the button elements and their corresponding content containers
     const buttons = document.querySelectorAll('.mode-buttons span');
@@ -52,6 +54,10 @@ function resetTimeButtons() {
     time2.style.color = '#808080';
     time3.style.color = '#808080';
     time4.style.color = '#808080';
+    word1.classList.remove('timeFlag');
+    word2.classList.remove('timeFlag');
+    word3.classList.remove('timeFlag');
+    word4.classList.remove('timeFlag');
 }
 
 function resetWordButtons() {
@@ -65,15 +71,34 @@ function resetWordButtons() {
     word2.style.color = '#808080';
     word3.style.color = '#808080';
     word4.style.color = '#808080';
+    word1.classList.remove('wordFlag');
+    word2.classList.remove('wordFlag');
+    word3.classList.remove('wordFlag');
+    word4.classList.remove('wordFlag');
 }
 
 function selectTime(timeId) {
-    // Reset all buttons before selecting the clicked one
-    resetTimeButtons();
+  // Reset all buttons before selecting the clicked one
+  resetTimeButtons();
+  // Get the clicked time button by id and change its color
+  let selectedTime = document.getElementById(timeId);
+  console.log(selectedTime)
+  selectedTime.style.color = '#f7768e'; // Highlight in pink
+  selectedTime.classList.add('timeFlag');
+  console.log(selectedTime.innerText)
 
-    // Get the clicked time button by id and change its color
-    let selectedTime = document.getElementById(timeId);
-    selectedTime.style.color = '#f7768e'; // Highlight in pink
+  // Calculate minutes and seconds
+  let minutes = Math.floor(selectedTime.innerText / 60);
+  let seconds = selectedTime.innerText % 60;
+
+  // Format as two-digit strings
+  let minString = minutes < 10 ? "0" + minutes : minutes;
+  let secString = seconds < 10 ? "0" + seconds : seconds;
+  // Display the formatted time
+  console.log(`${minString}:${secString}`);
+  // Optional: Update an HTML element if needed
+  document.getElementById("minutes").innerText = minString;
+  document.getElementById("seconds").innerText = secString;
 }
 
 function selectWord(wordId) {
@@ -83,4 +108,5 @@ function selectWord(wordId) {
     // Get the clicked word button by id and change its color
     let selectedWord = document.getElementById(wordId);
     selectedWord.style.color = '#f7768e'; // Highlight in pink
+    selectedWord.classList.add('wordFlag');
 }
