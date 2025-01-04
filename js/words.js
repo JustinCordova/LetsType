@@ -7,6 +7,24 @@ let wordDict = {};
 
 displayText();
 
+function resetGlobalVar() {
+  clearAllSpans();
+  charArray = [];
+  wordArray = [];
+  curWordIndex = -1;
+  wordIndex = 0;
+  wordDict = {};
+}
+
+function clearAllSpans() {
+  const container = document.getElementById("text-display");
+  console.log("clearAllSpans");
+  if (container) {
+    const spans = container.querySelectorAll("span");
+    spans.forEach((span) => span.remove()); // Remove each span
+  }
+}
+
 // Timer
 let allDone = false;
 let typingStarted = false;
@@ -47,34 +65,34 @@ let timerInterval;
 //     // }
 // }
 
-function showTime(countDown) {
-  let totalSeconds = parseInt(countDown, 10);
-  // Calculate minutes and seconds
-  let minutes = Math.floor(totalSeconds / 60);
-  let seconds = totalSeconds % 60;
-  // Format as two-digit strings
-  let minString = minutes < 10 ? "0" + minutes : minutes;
-  let secString = seconds < 10 ? "0" + seconds : seconds;
-  // Display the formatted time
-  // console.log(`${minString}:${secString}`);
-  // Optional: Update an HTML element if needed
-  document.getElementById("minutes").innerText = minString;
-  document.getElementById("seconds").innerText = secString;
-}
+// function showTime(countDown) {
+//   let totalSeconds = parseInt(countDown, 10);
+//   // Calculate minutes and seconds
+//   let minutes = Math.floor(totalSeconds / 60);
+//   let seconds = totalSeconds % 60;
+//   // Format as two-digit strings
+//   let minString = minutes < 10 ? "0" + minutes : minutes;
+//   let secString = seconds < 10 ? "0" + seconds : seconds;
+//   // Display the formatted time
+//   // console.log(`${minString}:${secString}`);
+//   // Optional: Update an HTML element if needed
+//   document.getElementById("minutes").innerText = minString;
+//   document.getElementById("seconds").innerText = secString;
+// }
 
-// Starts the timer when typing begins
-function startTimer() {
-  if (!typingStarted) {
-    typingStarted = true;
-    timerInterval = setInterval(timer, 10); // 10 ms interval
-  }
-}
+// // Starts the timer when typing begins
+// function startTimer() {
+//   if (!typingStarted) {
+//     typingStarted = true;
+//     timerInterval = setInterval(timer, 10); // 10 ms interval
+//   }
+// }
 
-// Stops the timer when typing is done
-function stopTimer() {
-  typingDone = true;
-  clearInterval(timerInterval);
-}
+// // Stops the timer when typing is done
+// function stopTimer() {
+//   typingDone = true;
+//   clearInterval(timerInterval);
+// }
 
 // Words
 function word() {
@@ -145,7 +163,7 @@ function wordCount() {
     console.log("inside nan");
     numer = 0;
   } else {
-    numer = wordDict[curWordIndex] + 1;
+    numer = wordDict[curWordIndex] + 1; // THIS IS THE ISSUE
   }
   console.log(numer);
   document.getElementById("denominator").innerText = denom;
@@ -174,20 +192,18 @@ function randomizeArray(wordArray, length) {
 
 // Zen
 function zen() {
+  console.log("clearAllSpans");
+  resetGlobalVar();
   let doneZen = false; // Tracks if Zen mode is complete
   const dispEl = document.getElementById("text-display");
+  dispEl.innerHTML = "";
   const zenEl = document.getElementById("zen-input");
   const inpEl = document.getElementById("typing-input");
-  console.log("In Zen");
   inpEl.style.display = "none";
   zenEl.style.display = "block";
   zenEl.style.opacity = "0";
   zenEl.style.zIndex = "999";
   zenFocus();
-
-
-  // Clear initial display
-  dispEl.innerHTML = "";
 
   // Add event listener for keydown
   zenEl.addEventListener("keydown", function (event) {
@@ -237,8 +253,7 @@ async function displayText() {
     quote();
   } else if (zenFl.length > 0) {
     let dispEl = document.getElementById("text-display");
-    dispEl.innerHTML = "";
-    charArray = [];
+
     zen();
   }
 }
