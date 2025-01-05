@@ -7,6 +7,12 @@ let wordDict = {};
 
 displayText();
 
+function resetWordCount() {
+  wordDict = {};
+  wordIndex = 0;
+  curWordIndex = -1;
+}
+
 function resetGlobalVar() {
   clearAllSpans();
   charArray = [];
@@ -111,7 +117,7 @@ function word() {
       wordArray = randomizeArray(wordArray, 100);
       break;
     default:
-      wordArray = randomizeArray(wordArray, 20);
+      wordArray = randomizeArray(wordArray, 25);
       break;
   }
   // Adds spaces to array
@@ -165,44 +171,26 @@ function wordCount() {
   } else {
     numer = wordDict[curWordIndex] + 1; // THIS IS THE ISSUE
   }
-  console.log(numer);
   document.getElementById("denominator").innerText = denom;
   document.getElementById("numerator").innerText = numer;
 }
 
-function resetWordCount() {
-  wordDict = {};
-  wordIndex = 0;
-  curWordIndex = -1;
-}
-
-// Randomize charArray based on input length
-function randomizeArray(wordArray, length) {
-  // Ensure length is within bounds (between 1 and the length of the array)
-  length = Math.min(length, wordArray.length);
-  let tempArray = [];
-  for (let i = 0; i < length; i++) {
-    let randomIndex = Math.floor(Math.random() * wordArray.length);
-    tempArray.push(wordArray[randomIndex]);
-  }
-  return tempArray;
-}
 
 // Quote
 
 // Zen
 function zen() {
-  console.log("clearAllSpans");
   resetGlobalVar();
   let doneZen = false; // Tracks if Zen mode is complete
   const dispEl = document.getElementById("text-display");
-  dispEl.style.display = "none";
   const zenEl = document.getElementById("zen-input");
   const inpEl = document.getElementById("typing-input");
+  dispEl.style.display = "none";
   inpEl.style.display = "none";
   zenEl.style.display = "block";
   zenEl.style.opacity = "0";
   zenEl.style.zIndex = "999";
+  zenEl.value = "";
   zenFocus();
 
   // Add event listener for keydown
@@ -217,7 +205,6 @@ function zen() {
       zenEl.value = ""; // Clear input box
     }
   });
-  console.log("hello");
   // Add event listener for real-time input
   zenEl.addEventListener("input", function () {
     if (!doneZen) {
@@ -256,19 +243,6 @@ async function displayText() {
 
     zen();
   }
-}
-
-function iterateArray(array) {
-  let dispEl = document.getElementById("text-display");
-  dispEl.innerHTML = "";
-  let count = 0;
-  array.forEach((char) => {
-    const charSpan = document.createElement("span");
-    charSpan.textContent = char;
-    charSpan.id = "t" + count;
-    dispEl.appendChild(charSpan);
-    count++;
-  });
 }
 
 document.addEventListener("keydown", function (event) {
@@ -384,6 +358,32 @@ function showEnd() {
     bg.style.opacity = "0.2";
   }, 10); // Small delay to allow the transition to work
   allDone = true;
+}
+
+// Randomize charArray based on input length
+function randomizeArray(wordArray, length) {
+  // Ensure length is within bounds (between 1 and the length of the array)
+  length = Math.min(length, wordArray.length);
+  let tempArray = [];
+  for (let i = 0; i < length; i++) {
+    let randomIndex = Math.floor(Math.random() * wordArray.length);
+    tempArray.push(wordArray[randomIndex]);
+  }
+  return tempArray;
+}
+
+// Iterate through spans
+function iterateArray(array) {
+  let dispEl = document.getElementById("text-display");
+  dispEl.innerHTML = "";
+  let count = 0;
+  array.forEach((char) => {
+    const charSpan = document.createElement("span");
+    charSpan.textContent = char;
+    charSpan.id = "t" + count;
+    dispEl.appendChild(charSpan);
+    count++;
+  });
 }
 
 function autoFocus() {

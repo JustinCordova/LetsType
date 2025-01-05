@@ -4,8 +4,8 @@ function toggleDisplay(clickedId) {
     const times = document.getElementById('times-set');
     const words = document.getElementById('words-set');
     const quote = document.getElementById('quote'); 
-    const zen = document.getElementById('zen'); 
-    const timer = document.getElementById('timer');
+    const zen = document.getElementById('zen');
+    // For word and quote 
     const numerator = document.getElementById('numerator');
     const denominator = document.getElementById('denominator');
     const backslash = document.getElementById('backslash');
@@ -21,16 +21,17 @@ function toggleDisplay(clickedId) {
     buttons.forEach(button => {
       // Reset button color to default (gray)
       button.style.color = '#808080';
-      
-
       if ((clickedId === 'times')) {
         zen.classList.remove('zenFlag');
         quote.classList.remove('quoteFlag');
+        resetWordButtons();
+        // Hide
         words.style.display = 'none';
-        timer.style.display = 'block'
         numerator.style.display = 'none';
         denominator.style.display = 'none';
         backslash.style.display = 'none';
+        // Show
+        timer.style.display = 'block'
       } 
       else if ((clickedId === 'words')) {
         zen.classList.remove('zenFlag');
@@ -41,20 +42,27 @@ function toggleDisplay(clickedId) {
         denominator.style.display = 'block';
         backslash.style.display = 'block';
       } 
-      else if(clickedId === 'quote') {;
+      else if(clickedId === 'quote') {
+        resetTimeButtons();
+        resetWordButtons();
         zen.classList.remove('zenFlag');
         quote.classList.add('quoteFlag');
+        // Hide
         times.style.display = 'none';
         timer.style.display = 'none';
         words.style.display = 'none';
-        numerator.style.display = 'none';
-        denominator.style.display = 'none';
-        backslash.style.display = 'none';
+        // Show
+        numerator.style.display = 'block';
+        denominator.style.display = 'block';
+        backslash.style.display = 'block';
         
       } 
       else if(clickedId === 'zen') {
-        zenFocus();
+        resetTimeButtons();
+        resetWordButtons();
+        quote.classList.remove('quoteFlag');
         zen.classList.add('zenFlag');
+        // Hide everything
         times.style.display = 'none';
         timer.style.display = 'none';
         words.style.display = 'none';
@@ -75,32 +83,56 @@ function toggleDisplay(clickedId) {
     document.getElementById(clickedId).style.color = '#f7768e';
   }
 
-reset
+function toggleTimer() {
+  const timer = document.getElementById('timer');
+    
+  // Check current display status and toggle
+  if (timer.style.display === 'none' || timer.style.display === '') {
+    timer.style.display = 'block'; // Show the timer
+  } else {
+    timer.style.display = 'none'; // Hide the timer
+  }
+}
+  
+
+function resetTimeFlag() {
+  let time1 = document.getElementById('time1');
+  let time2 = document.getElementById('time2');
+  let time3 = document.getElementById('time3');
+  let time4 = document.getElementById('time4');
+  time1.classList.remove('timeFlag');
+  time2.classList.remove('timeFlag');
+  time3.classList.remove('timeFlag');
+  time4.classList.remove('timeFlag');
+}
+
+function resetWordFlag() {
+  let word1 = document.getElementById('word1');
+  let word2 = document.getElementById('word2');
+  let word3 = document.getElementById('word3');
+  let word4 = document.getElementById('word4');
+  word1.classList.remove('wordFlag');
+  word2.classList.remove('wordFlag');
+  word3.classList.remove('wordFlag');
+  word4.classList.remove('wordFlag');
+}
 
 function resetTimeButtons() {
-
     // Reset the color of all time buttons to the default color
     time1.style.color = '#808080';
     time2.style.color = '#808080';
     time3.style.color = '#808080';
     time4.style.color = '#808080';
-    time1.classList.remove('timeFlag');
-    time2.classList.remove('timeFlag');
-    time3.classList.remove('timeFlag');
-    time4.classList.remove('timeFlag');
+    resetTimeFlag();
 }
 
 function resetWordButtons() {
-
     // Reset the color of all word buttons to the default color
     word1.style.color = '#808080';
     word2.style.color = '#808080';
     word3.style.color = '#808080';
     word4.style.color = '#808080';
-    word1.classList.remove('wordFlag');
-    word2.classList.remove('wordFlag');
-    word3.classList.remove('wordFlag');
-    word4.classList.remove('wordFlag');
+    resetWordFlag();
 }
 
 function selectTime(timeId) {
