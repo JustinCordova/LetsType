@@ -196,7 +196,7 @@ function zen() {
   resetGlobalVar();
   let doneZen = false; // Tracks if Zen mode is complete
   const dispEl = document.getElementById("text-display");
-  dispEl.innerHTML = "";
+  dispEl.style.display = "none";
   const zenEl = document.getElementById("zen-input");
   const inpEl = document.getElementById("typing-input");
   inpEl.style.display = "none";
@@ -243,8 +243,8 @@ async function displayText() {
   addCursor(0);
   const wordFl = document.querySelectorAll(".wordFlag");
   const timeFl = document.querySelectorAll(".timeFlag");
-  const quoteFl = document.querySelectorAll(".quoteFl");
-  const zenFl = document.querySelectorAll(".zenFl");
+  const quoteFl = document.querySelectorAll(".quoteFlag");
+  const zenFl = document.querySelectorAll(".zenFlag");
   if (wordFl.length > 0) {
     word();
   } else if (timeFl.length > 0) {

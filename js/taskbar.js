@@ -1,19 +1,10 @@
-let time1 = document.getElementById('time1');
-  let time2 = document.getElementById('time2');
-  let time3 = document.getElementById('time3');
-  let time4 = document.getElementById('time4');
-  let word1 = document.getElementById('word1');
-  let word2 = document.getElementById('word2');
-  let word3 = document.getElementById('word3');
-  let word4 = document.getElementById('word4');
-
 function toggleDisplay(clickedId) {
     // Get all the button elements and their corresponding content containers
     const buttons = document.querySelectorAll('.mode-buttons span');
     const times = document.getElementById('times-set');
     const words = document.getElementById('words-set');
-    const quote = document.getElementById('quote'); // For color change
-    const zen = document.getElementById('zen'); // For color change
+    const quote = document.getElementById('quote'); 
+    const zen = document.getElementById('zen'); 
     const timer = document.getElementById('timer');
     const numerator = document.getElementById('numerator');
     const denominator = document.getElementById('denominator');
@@ -32,8 +23,9 @@ function toggleDisplay(clickedId) {
       button.style.color = '#808080';
       
 
-      // Hide # of words if Times button is clicked
       if ((clickedId === 'times')) {
+        zen.classList.remove('zenFlag');
+        quote.classList.remove('quoteFlag');
         words.style.display = 'none';
         timer.style.display = 'block'
         numerator.style.display = 'none';
@@ -41,6 +33,8 @@ function toggleDisplay(clickedId) {
         backslash.style.display = 'none';
       } 
       else if ((clickedId === 'words')) {
+        zen.classList.remove('zenFlag');
+        quote.classList.remove('quoteFlag');
         times.style.display = 'none';
         timer.style.display = 'none';
         numerator.style.display = 'block';
@@ -48,7 +42,8 @@ function toggleDisplay(clickedId) {
         backslash.style.display = 'block';
       } 
       else if(clickedId === 'quote') {;
-        quote.classList.add('quoteFl');
+        zen.classList.remove('zenFlag');
+        quote.classList.add('quoteFlag');
         times.style.display = 'none';
         timer.style.display = 'none';
         words.style.display = 'none';
@@ -59,7 +54,7 @@ function toggleDisplay(clickedId) {
       } 
       else if(clickedId === 'zen') {
         zenFocus();
-        zen.classList.add('zenFl');
+        zen.classList.add('zenFlag');
         times.style.display = 'none';
         timer.style.display = 'none';
         words.style.display = 'none';
@@ -75,24 +70,12 @@ function toggleDisplay(clickedId) {
       }
     });
     
-  
     // Show the content for the clicked button and set its color to pink
     containers[clickedId].style.display = 'block';
     document.getElementById(clickedId).style.color = '#f7768e';
   }
 
-function flagResetter() {
-  time1.classList.remove('timeFlag');
-    time2.classList.remove('timeFlag');
-    time3.classList.remove('timeFlag');
-    time4.classList.remove('timeFlag');
-    word1.classList.remove('wordFlag');
-    word2.classList.remove('wordFlag');
-    word3.classList.remove('wordFlag');
-    word4.classList.remove('wordFlag');
-}
-
-
+reset
 
 function resetTimeButtons() {
 
