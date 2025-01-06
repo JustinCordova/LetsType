@@ -152,7 +152,7 @@ footer p {
   position: absolute;
 }
 
-/* .zen-input {
+.zen-input {
   padding: 10px 15px;
   color: white;
   top: 0;
@@ -164,7 +164,7 @@ footer p {
   opacity: 0;
   z-index: 1;
   position: absolute;
-} */
+}
 
 /* Cursor Styling */
 .cursor {
@@ -208,7 +208,7 @@ footer p {
   margin-top: 0px;
   font-size: 2em;
   color: #f7768e;
-  display: none;
+  display: block;
 }
 
 .wordCount {

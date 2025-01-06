@@ -1,3 +1,5 @@
+const timer = document.getElementById('timer');
+
 function toggleDisplay(clickedId) {
     // Get all the button elements and their corresponding content containers
     const buttons = document.querySelectorAll('.mode-buttons span');
@@ -26,36 +28,33 @@ function toggleDisplay(clickedId) {
         quote.classList.remove('quoteFlag');
         resetWordButtons();
         // Hide
+
         words.style.display = 'none';
-        numerator.style.display = 'none';
-        denominator.style.display = 'none';
-        backslash.style.display = 'none';
+        
         // Show
-        timer.style.display = 'block'
+        timer.style.display = 'block';
+        toggleTimer();
+        offWordOpacity();
       } 
       else if ((clickedId === 'words')) {
         zen.classList.remove('zenFlag');
         quote.classList.remove('quoteFlag');
+
         times.style.display = 'none';
-        timer.style.display = 'none';
-        numerator.style.display = 'block';
-        denominator.style.display = 'block';
-        backslash.style.display = 'block';
+        toggleTimer();
       } 
       else if(clickedId === 'quote') {
         resetTimeButtons();
         resetWordButtons();
         zen.classList.remove('zenFlag');
         quote.classList.add('quoteFlag');
+
         // Hide
         times.style.display = 'none';
-        timer.style.display = 'none';
+        toggleTimer();
         words.style.display = 'none';
         // Show
-        numerator.style.display = 'block';
-        denominator.style.display = 'block';
-        backslash.style.display = 'block';
-        
+        offWordOpacity();
       } 
       else if(clickedId === 'zen') {
         resetTimeButtons();
@@ -64,11 +63,9 @@ function toggleDisplay(clickedId) {
         zen.classList.add('zenFlag');
         // Hide everything
         times.style.display = 'none';
-        timer.style.display = 'none';
+        toggleTimer();
         words.style.display = 'none';
-        numerator.style.display = 'none';
-        denominator.style.display = 'none';
-        backslash.style.display = 'none';
+        offWordOpacity();
       }
       // Hide the times and # of words if Quote or Zen is clicked
       else {
@@ -84,7 +81,6 @@ function toggleDisplay(clickedId) {
   }
 
 function toggleTimer() {
-  const timer = document.getElementById('timer');
     
   // Check current display status and toggle
   if (timer.style.display === 'none' || timer.style.display === '') {
@@ -140,10 +136,8 @@ function selectTime(timeId) {
   resetTimeButtons();
   // Get the clicked time button by id and change its color
   let selectedTime = document.getElementById(timeId);
-  console.log(selectedTime)
   selectedTime.style.color = '#f7768e'; // Highlight in pink
   selectedTime.classList.add('timeFlag');
-  console.log(selectedTime.innerText)
 
   // Calculate minutes and seconds
   let minutes = Math.floor(selectedTime.innerText / 60);
@@ -153,7 +147,7 @@ function selectTime(timeId) {
   let minString = minutes < 10 ? "0" + minutes : minutes;
   let secString = seconds < 10 ? "0" + seconds : seconds;
   // Display the formatted time
-  console.log(`${minString}:${secString}`);
+
   // Optional: Update an HTML element if needed
   document.getElementById("minutes").innerText = minString;
   document.getElementById("seconds").innerText = secString;
@@ -168,4 +162,3 @@ function selectWord(wordId) {
     selectedWord.style.color = '#f7768e'; // Highlight in pink
     selectedWord.classList.add('wordFlag');
 }
-

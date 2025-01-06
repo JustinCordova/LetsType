@@ -1,9 +1,15 @@
 //Global Var
 let charArray = [];
 let wordArray = [];
+let quoteArray = [];
+let quoteUsed;
 let curWordIndex = -1;
 let wordIndex = 0;
 let wordDict = {};
+let allDone = false;
+
+let typingStarted = false;
+let typingDone = false;
 
 displayText();
 
@@ -17,238 +23,75 @@ function resetGlobalVar() {
   clearAllSpans();
   charArray = [];
   wordArray = [];
+  quoteArray = [];
+  quoteUsed = "";
   curWordIndex = -1;
   wordIndex = 0;
   wordDict = {};
+  totalStrokes = 0;
+  backSpaceStrokes = 0;
+  typingDone = false;
+  typingStarted = false;
 }
 
 function clearAllSpans() {
   const container = document.getElementById("text-display");
-  console.log("clearAllSpans");
+  container.innerHTML = "";
+  // console.log("clearAllSpans");
   if (container) {
     const spans = container.querySelectorAll("span");
     spans.forEach((span) => span.remove()); // Remove each span
   }
 }
 
-// Timer
-let allDone = false;
-let typingStarted = false;
-let typingDone = false;
-let minute = 0;
-let second = 0;
-let count = 0;
-let timerInterval;
-
-// function timer() {
-//   let countDown = document.getElementsByClassName('timeFlag')[0].innerText;
-//   console.log(countDown)
-
-//   while (countDown > 0) {
-//     showTime(countDown);
-//     countDown--;
-//   }
-//     // if (typingStarted && !typingDone) {
-//     //   count++;
-
-//     //   // Update seconds and minutes based on count
-//     //   if (count === 100) {
-//     //       second--;
-//     //       count = 0;
-//     //   }
-//     //   if (second === 60) {
-//     //       minute--;
-//     //       second = 0;
-//     //   }
-
-//     //   // Format time values as two-digit strings
-//     //   let minString = minute < 10 ? "0" + minute : minute;
-//     //   let secString = second < 10 ? "0" + second : second;
-
-//     //   // Update HTML content
-//     //   document.getElementById("minutes").innerHTML = minString;
-//     //   document.getElementById("seconds").innerHTML = secString;
-//     // }
-// }
-
-// function showTime(countDown) {
-//   let totalSeconds = parseInt(countDown, 10);
-//   // Calculate minutes and seconds
-//   let minutes = Math.floor(totalSeconds / 60);
-//   let seconds = totalSeconds % 60;
-//   // Format as two-digit strings
-//   let minString = minutes < 10 ? "0" + minutes : minutes;
-//   let secString = seconds < 10 ? "0" + seconds : seconds;
-//   // Display the formatted time
-//   // console.log(`${minString}:${secString}`);
-//   // Optional: Update an HTML element if needed
-//   document.getElementById("minutes").innerText = minString;
-//   document.getElementById("seconds").innerText = secString;
-// }
-
-// // Starts the timer when typing begins
-// function startTimer() {
-//   if (!typingStarted) {
-//     typingStarted = true;
-//     timerInterval = setInterval(timer, 10); // 10 ms interval
-//   }
-// }
-
-// // Stops the timer when typing is done
-// function stopTimer() {
-//   typingDone = true;
-//   clearInterval(timerInterval);
-// }
-
-// Words
-function word() {
-  let wordEl = document.getElementsByClassName("wordFlag")[0].innerText;
-  switch (wordEl) {
-    case "10":
-      wordArray = randomizeArray(wordArray, 10);
-      break;
-    case "25":
-      wordArray = randomizeArray(wordArray, 25);
-      break;
-    case "50":
-      wordArray = randomizeArray(wordArray, 50);
-      break;
-    case "100":
-      wordArray = randomizeArray(wordArray, 100);
-      break;
-    default:
-      wordArray = randomizeArray(wordArray, 25);
-      break;
-  }
-  // Adds spaces to array
-  for (let i = 0; i < wordArray.length - 1; i++) {
-    wordArray[i] = wordArray[i] + " ";
-  }
-  // Converts to string
-  let words = wordArray.join("");
-  // Split string into characters
-  charArray = words.split("");
-  makeIndexes();
-
-  // Create new spans for each charArray element
-  let dispEl = document.getElementById("text-display");
-  dispEl.innerHTML = "";
-  let count = 0;
-  charArray.forEach((char) => {
-    const charSpan = document.createElement("span");
-    charSpan.textContent = char;
-    charSpan.id = "t" + count;
-    dispEl.appendChild(charSpan);
-    count++;
-  });
-}
-
-function makeIndexes() {
-  let charIndex = charArray;
-
-  charIndex.forEach((char, index) => {
-    console.log("Character: " + char + ", Index: " + index);
-    if (char !== " ") {
-      // If the character is not a space
-      wordDict[index] = wordIndex; // Map the character to the current word index
-    } else {
-      wordDict[index] = wordIndex;
-      wordIndex++;
-      console.log(wordIndex); // Increment the word index when a space is encountered
-    }
-  });
-  console.log("wordIndex: " + wordIndex);
-}
-
-function wordCount() {
-  let denom = document.getElementsByClassName("wordFlag")[0].innerText;
-  console.log(denom);
-  console.log(wordDict);
-  let numer;
-  if (Number.isNaN(wordDict[curWordIndex] + 1)) {
-    console.log("inside nan");
-    numer = 0;
-  } else {
-    numer = wordDict[curWordIndex] + 1; // THIS IS THE ISSUE
-  }
-  document.getElementById("denominator").innerText = denom;
-  document.getElementById("numerator").innerText = numer;
-}
-
-
-// Quote
-
-// Zen
-function zen() {
-  resetGlobalVar();
-  let doneZen = false; // Tracks if Zen mode is complete
-  const dispEl = document.getElementById("text-display");
-  const zenEl = document.getElementById("zen-input");
-  const inpEl = document.getElementById("typing-input");
-  dispEl.style.display = "none";
-  inpEl.style.display = "none";
-  zenEl.style.display = "block";
-  zenEl.style.opacity = "0";
-  zenEl.style.zIndex = "999";
-  zenEl.value = "";
-  zenFocus();
-
-  // Add event listener for keydown
-  zenEl.addEventListener("keydown", function (event) {
-    if (event.key === "Enter" && event.shiftKey) {
-      // Prevent default behavior
-      event.preventDefault();
-
-      // End Zen mode
-      doneZen = true;
-      showEnd(); // Call your custom end function
-      zenEl.value = ""; // Clear input box
-    }
-  });
-  // Add event listener for real-time input
-  zenEl.addEventListener("input", function () {
-    if (!doneZen) {
-      // Update display with current input, replacing spaces and newlines
-      dispEl.innerHTML = zenEl.value.replace(/\n/g, "<br>");
-    }
-  });
-}
-
 async function wordParse() {
   const responses = await fetch("assets/samples/words.txt");
   const data = await responses.text();
   wordArray = data.split(" ");
+  totalWords = data.split(" ").length;
   charArray = data.split("");
+}
+
+async function quoteParse() {
+  const responses = await fetch("assets/samples/quotes.txt");
+  const data = await responses.text();
+  quoteArray = data.split("\n");
+  const randomIdx = Math.floor(Math.random() * quoteArray.length);
+  quoteUsed = quoteArray[randomIdx];
+  totalWords = quoteUsed.split(" ").length;
 }
 
 // Displays text for timer, words, and quotes
 async function displayText() {
   let dispEl = document.createElement("display-text");
   dispEl.innerHTML = "";
-  await wordParse();
   // Add initial cursor at the start
   addCursor(0);
+
+  // Switches modes
   const wordFl = document.querySelectorAll(".wordFlag");
   const timeFl = document.querySelectorAll(".timeFlag");
   const quoteFl = document.querySelectorAll(".quoteFlag");
   const zenFl = document.querySelectorAll(".zenFlag");
   if (wordFl.length > 0) {
+    await wordParse();
     word();
   } else if (timeFl.length > 0) {
-    timer();
+    await wordParse();
+    time();
   } else if (quoteFl.length > 0) {
+    await quoteParse();
     quote();
   } else if (zenFl.length > 0) {
-    let dispEl = document.getElementById("text-display");
-
     zen();
   }
 }
 
+// Event Listener for Typing
 document.addEventListener("keydown", function (event) {
   const arrowKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
 
-  console.log(event.key);
+  // console.log(event.key);
   if (
     event.key === "Shift" ||
     event.key === "Alt" ||
@@ -264,22 +107,36 @@ document.addEventListener("keydown", function (event) {
       dispEl.style.backgroundColor = null;
       curWordIndex--;
       addCursor(Math.max(0, curWordIndex + 1));
+      backSpaceStrokes++;
     }
   } else if (
-    /[a-zA-Z0-9\s\W]/.test(event.key) &&
+    (/[a-zA-Z0-9\s\W']/.test(event.key) ||
+      event.key == "'" ||
+      event.key == "’") &&
     curWordIndex < charArray.length - 1 &&
     !arrowKeys.includes(event.key)
   ) {
     curWordIndex++;
     addCursor(curWordIndex + 1);
+    totalStrokes++;
   }
 });
 
+// Matches event input to the text
 function inputCheck(event) {
+  let timeFl = document.querySelectorAll(".timeFlag");
+  let timer = document.getElementById("timer");
   if (allDone) return;
-
-  // Start timer when the user starts typing
-  // startTimer();
+  if (typingStarted == false && typingDone == false) {
+    if (timeFl.length <= 0) {
+      onWordOpacity();
+    }
+    else {
+      timer.style.display = "block";
+    }
+    typingStarted = true;
+    startTimer();
+  }
 
   if (!event.data && event.inputType !== "deleteContentBackward") return;
 
@@ -316,50 +173,6 @@ function addCursor(spanId) {
   }
 }
 
-function checkEnd(event) {
-  let dispEl = document.getElementById("t" + curWordIndex);
-
-  // Case Correct
-  if (
-    curWordIndex === charArray.length - 1 &&
-    dispEl.style.color === "lightgreen"
-  ) {
-    console.log("Reached correct case");
-    showEnd();
-  }
-
-  // Case Incorrect
-  else if (curWordIndex >= charArray.length - 1 && event.data === " ") {
-    console.log("Reached incorrect case");
-    console.log(event.key);
-    showEnd();
-  }
-}
-
-function showEnd() {
-  if (allDone) return;
-  // stopTimer();
-
-  let bg = document.createElement("div");
-  bg.style.backgroundColor = "black";
-  bg.style.position = "fixed";
-  bg.style.top = "0";
-  bg.style.left = "0";
-  bg.style.width = "100%";
-  bg.style.height = "100%";
-  bg.style.opacity = "0";
-  bg.style.transition = "opacity 0.5s ease";
-  bg.style.zIndex = "9999"; // Ensure it appears on top
-
-  document.body.appendChild(bg);
-
-  // Fade the overlay in after a slight delay
-  setTimeout(() => {
-    bg.style.opacity = "0.2";
-  }, 10); // Small delay to allow the transition to work
-  allDone = true;
-}
-
 // Randomize charArray based on input length
 function randomizeArray(wordArray, length) {
   // Ensure length is within bounds (between 1 and the length of the array)
@@ -393,3 +206,24 @@ function autoFocus() {
 function zenFocus() {
   document.getElementById("zen-input").focus();
 }
+
+function getTotalWords() {}
+
+function onWordOpacity() {
+  const element = document.getElementById("wordCount");
+
+  // Check if the element exists
+  if (element) {
+    element.style.opacity = "1"; // Make the element visible
+  }
+}
+
+function offWordOpacity() {
+  const element = document.getElementById("wordCount");
+
+  // Check if the element exists
+  if (element) {
+    element.style.opacity = "0"; // Make the element invisible
+  }
+}
+

@@ -24,17 +24,17 @@
       <nav class="taskbar">
         <div class="mode-buttons">
           <span
-            onclick="toggleDisplay('times')"
+            onclick="toggleDisplay('times'); displayText(); resetGlobalVar();"
             id="times"
             class="active"
             style="color: #f7768e"
             >Time</span
           >
-          <span onclick="toggleDisplay('words')" id="words">Words</span>
-          <span onclick="toggleDisplay('quote'); displayText();" id="quote"
+          <span onclick="toggleDisplay('words'); displayText(); resetGlobalVar();" id="words">Words</span>
+          <span onclick="toggleDisplay('quote'); displayText(); resetGlobalVar(); autoFocus();" id="quote"
             >Quote</span
           >
-          <span onclick="toggleDisplay('zen'); displayText();" id="zen"
+          <span onclick="toggleDisplay('zen'); displayText(); resetGlobalVar()" id="zen"
             >Zen</span
           >
         </div>
@@ -88,12 +88,16 @@
         </div>
       </nav>
 
-      <!-- Timer -->
-      <span class="timer" id="timer" oninput="timer()">
+      <!-- Endscreen Timer -->
+      <div class="globalTimer" id="globalTimer" style="color: white; font-size: 0px; opacity: 0; width: 1px; height: 1px;">
+        <span id="minutes">00</span>:<span id="seconds">00</span>
+      </div>
+      <!-- Timer for Time Button -->
+      <span class="timer" id="timer" oninput="time()">
         <span id="minutes">00</span>:<span id="seconds">00</span>
       </span>
       <!-- WordCount -->
-      <span class="wordCount" id="wordCount">
+      <span class="wordCount" id="wordCount" style="opacity: 0;">
         <span id="numerator">0</span>
         <span id="backslash">/</span>
         <span id="denominator">10</span>
@@ -128,7 +132,7 @@
           class="typing-input"
           autocomplete="off"
           style="border: none; background: transparent; color: purple"
-          oninput="inputCheck(event); checkEnd(event); wordCount();"
+          oninput="inputCheck(event); wordCount();"
         />
       </div>
     </main>
@@ -139,4 +143,7 @@
   </footer>
   <script src="js/taskbar.js"></script>
   <script src="js/words.js"></script>
+  <script src="js/mode.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/endScreen.js"></script>
 </html>
