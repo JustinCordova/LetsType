@@ -124,16 +124,8 @@ document.addEventListener("keydown", function (event) {
 
 // Matches event input to the text
 function inputCheck(event) {
-  let timeFl = document.querySelectorAll(".timeFlag");
-  let timer = document.getElementById("timer");
   if (allDone) return;
   if (typingStarted == false && typingDone == false) {
-    if (timeFl.length <= 0) {
-      onWordOpacity();
-    }
-    else {
-      timer.style.display = "block";
-    }
     typingStarted = true;
     startTimer();
   }
@@ -208,22 +200,3 @@ function zenFocus() {
 }
 
 function getTotalWords() {}
-
-function onWordOpacity() {
-  const element = document.getElementById("wordCount");
-
-  // Check if the element exists
-  if (element) {
-    element.style.opacity = "1"; // Make the element visible
-  }
-}
-
-function offWordOpacity() {
-  const element = document.getElementById("wordCount");
-
-  // Check if the element exists
-  if (element) {
-    element.style.opacity = "0"; // Make the element invisible
-  }
-}
-

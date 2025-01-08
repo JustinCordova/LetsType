@@ -30,8 +30,8 @@
             style="color: #f7768e"
             >Time</span
           >
-          <span onclick="toggleDisplay('words'); displayText(); resetGlobalVar();" id="words">Words</span>
-          <span onclick="toggleDisplay('quote'); displayText(); resetGlobalVar(); autoFocus();" id="quote"
+          <span onclick="toggleDisplay('words'); displayText(); resetGlobalVar(); wordCount();" id="words">Words</span>
+          <span onclick="toggleDisplay('quote'); displayText(); resetGlobalVar(); autoFocus(); wordCount();" id="quote"
             >Quote</span
           >
           <span onclick="toggleDisplay('zen'); displayText(); resetGlobalVar()" id="zen"
@@ -97,7 +97,7 @@
         <span id="minutes">00</span>:<span id="seconds">00</span>
       </span>
       <!-- WordCount -->
-      <span class="wordCount" id="wordCount" style="opacity: 0;">
+      <span class="wordCount" id="wordCount">
         <span id="numerator">0</span>
         <span id="backslash">/</span>
         <span id="denominator">10</span>

@@ -1,134 +1,115 @@
-const timer = document.getElementById('timer');
-
 function toggleDisplay(clickedId) {
-    // Get all the button elements and their corresponding content containers
-    const buttons = document.querySelectorAll('.mode-buttons span');
-    const times = document.getElementById('times-set');
-    const words = document.getElementById('words-set');
-    const quote = document.getElementById('quote'); 
-    const zen = document.getElementById('zen');
-    // For word and quote 
-    const numerator = document.getElementById('numerator');
-    const denominator = document.getElementById('denominator');
-    const backslash = document.getElementById('backslash');
-    
-    const containers = {
-      'times': times,
-      'words': words,
-      'quote': quote,
-      'zen': zen
-    };
-  
-    // Loop through all buttons and reset their styles
-    buttons.forEach(button => {
-      // Reset button color to default (gray)
-      button.style.color = '#808080';
-      if ((clickedId === 'times')) {
-        zen.classList.remove('zenFlag');
-        quote.classList.remove('quoteFlag');
-        resetWordButtons();
-        // Hide
+  // Get all the button elements and their corresponding content containers
+  const buttons = document.querySelectorAll(".mode-buttons span");
+  const times = document.getElementById("times-set");
+  const words = document.getElementById("words-set");
+  const quote = document.getElementById("quote");
+  const zen = document.getElementById("zen");
+  let timerEl = document.getElementById("timer");
+  let wordCountEl = document.getElementById("wordCount");
 
-        words.style.display = 'none';
-        
-        // Show
-        timer.style.display = 'block';
-        toggleTimer();
-        offWordOpacity();
-      } 
-      else if ((clickedId === 'words')) {
-        zen.classList.remove('zenFlag');
-        quote.classList.remove('quoteFlag');
+  const containers = {
+    times: times,
+    words: words,
+    quote: quote,
+    zen: zen,
+  };
 
-        times.style.display = 'none';
-        toggleTimer();
-      } 
-      else if(clickedId === 'quote') {
-        resetTimeButtons();
-        resetWordButtons();
-        zen.classList.remove('zenFlag');
-        quote.classList.add('quoteFlag');
+  // Loop through all buttons and reset their styles
+  buttons.forEach((button) => {
+    // Reset button color to default (gray)
+    button.style.color = "#808080";
+    if (clickedId === "times") {
+      zen.classList.remove("zenFlag");
+      quote.classList.remove("quoteFlag");
+      resetWordButtons();
+      // Hide
+      words.style.display = "none";
+      wordCountEl.style.display = "none";
+      // Show
+      timerEl.style.display = "block";
+    } else if (clickedId === "words") {
+      zen.classList.remove("zenFlag");
+      quote.classList.remove("quoteFlag");
+      // Hide
+      times.style.display = "none";
+      timerEl.style.display = "none";
+      // Show
+      wordCountEl.style.display = "block";
+    } else if (clickedId === "quote") {
+      resetTimeButtons();
+      resetWordButtons();
+      zen.classList.remove("zenFlag");
+      quote.classList.add("quoteFlag");
 
-        // Hide
-        times.style.display = 'none';
-        toggleTimer();
-        words.style.display = 'none';
-        // Show
-        offWordOpacity();
-      } 
-      else if(clickedId === 'zen') {
-        resetTimeButtons();
-        resetWordButtons();
-        quote.classList.remove('quoteFlag');
-        zen.classList.add('zenFlag');
-        // Hide everything
-        times.style.display = 'none';
-        toggleTimer();
-        words.style.display = 'none';
-        offWordOpacity();
-      }
-      // Hide the times and # of words if Quote or Zen is clicked
-      else {
-        times.style.display = 'none';
-        words.style.display = 'none';
-        
-      }
-    });
-    
-    // Show the content for the clicked button and set its color to pink
-    containers[clickedId].style.display = 'block';
-    document.getElementById(clickedId).style.color = '#f7768e';
-  }
+      // Hide
+      times.style.display = "none";
+      words.style.display = "none";
+      timerEl.style.display = "none";
+      // Show
+      wordCountEl.style.display = "block";
+    } else if (clickedId === "zen") {
+      resetTimeButtons();
+      resetWordButtons();
+      quote.classList.remove("quoteFlag");
+      zen.classList.add("zenFlag");
+      // Hide everything
+      times.style.display = "none";
+      words.style.display = "none";
+      timerEl.style.display = "none";
+      wordCountEl.style.display = "none";
+      // Show
+    }
+    // Hide the times and # of words if Quote or Zen is clicked
+    else {
+      times.style.display = "none";
+      words.style.display = "none";
+    }
+  });
 
-function toggleTimer() {
-    
-  // Check current display status and toggle
-  if (timer.style.display === 'none' || timer.style.display === '') {
-    timer.style.display = 'block'; // Show the timer
-  } else {
-    timer.style.display = 'none'; // Hide the timer
-  }
+  // Show the content for the clicked button and set its color to pink
+  containers[clickedId].style.display = "block";
+  document.getElementById(clickedId).style.color = "#f7768e";
 }
-  
 
 function resetTimeFlag() {
-  let time1 = document.getElementById('time1');
-  let time2 = document.getElementById('time2');
-  let time3 = document.getElementById('time3');
-  let time4 = document.getElementById('time4');
-  time1.classList.remove('timeFlag');
-  time2.classList.remove('timeFlag');
-  time3.classList.remove('timeFlag');
-  time4.classList.remove('timeFlag');
+  let time1 = document.getElementById("time1");
+  let time2 = document.getElementById("time2");
+  let time3 = document.getElementById("time3");
+  let time4 = document.getElementById("time4");
+  time1.classList.remove("timeFlag");
+  time2.classList.remove("timeFlag");
+  time3.classList.remove("timeFlag");
+  time4.classList.remove("timeFlag");
 }
 
 function resetWordFlag() {
-  let word1 = document.getElementById('word1');
-  let word2 = document.getElementById('word2');
-  let word3 = document.getElementById('word3');
-  let word4 = document.getElementById('word4');
-  word1.classList.remove('wordFlag');
-  word2.classList.remove('wordFlag');
-  word3.classList.remove('wordFlag');
-  word4.classList.remove('wordFlag');
+  let word1 = document.getElementById("word1");
+  let word2 = document.getElementById("word2");
+  let word3 = document.getElementById("word3");
+  let word4 = document.getElementById("word4");
+  word1.classList.remove("wordFlag");
+  word2.classList.remove("wordFlag");
+  word3.classList.remove("wordFlag");
+  word4.classList.remove("wordFlag");
 }
 
 function resetTimeButtons() {
-    // Reset the color of all time buttons to the default color
-    time1.style.color = '#808080';
-    time2.style.color = '#808080';
-    time3.style.color = '#808080';
-    time4.style.color = '#808080';
-    resetTimeFlag();
+  // Reset the color of all time buttons to the default color
+  time1.style.color = "#808080";
+  time2.style.color = "#808080";
+  time3.style.color = "#808080";
+  time4.style.color = "#808080";
+  resetTimeFlag();
 }
 
 function resetWordButtons() {
-    // Reset the color of all word buttons to the default color
-    word1.style.color = '#808080';
-    word2.style.color = '#808080';
-    word3.style.color = '#808080';
-    word4.style.color = '#808080';
-    resetWordFlag();
+  // Reset the color of all word buttons to the default color
+  word1.style.color = "#808080";
+  word2.style.color = "#808080";
+  word3.style.color = "#808080";
+  word4.style.color = "#808080";
+  resetWordFlag();
 }
 
 function selectTime(timeId) {
@@ -136,8 +117,8 @@ function selectTime(timeId) {
   resetTimeButtons();
   // Get the clicked time button by id and change its color
   let selectedTime = document.getElementById(timeId);
-  selectedTime.style.color = '#f7768e'; // Highlight in pink
-  selectedTime.classList.add('timeFlag');
+  selectedTime.style.color = "#f7768e"; // Highlight in pink
+  selectedTime.classList.add("timeFlag");
 
   // Calculate minutes and seconds
   let minutes = Math.floor(selectedTime.innerText / 60);
@@ -154,11 +135,11 @@ function selectTime(timeId) {
 }
 
 function selectWord(wordId) {
-    // Reset all buttons before selecting the clicked one
-    resetWordButtons();
+  // Reset all buttons before selecting the clicked one
+  resetWordButtons();
 
-    // Get the clicked word button by id and change its color
-    let selectedWord = document.getElementById(wordId);
-    selectedWord.style.color = '#f7768e'; // Highlight in pink
-    selectedWord.classList.add('wordFlag');
+  // Get the clicked word button by id and change its color
+  let selectedWord = document.getElementById(wordId);
+  selectedWord.style.color = "#f7768e"; // Highlight in pink
+  selectedWord.classList.add("wordFlag");
 }
