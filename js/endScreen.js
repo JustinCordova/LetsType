@@ -27,6 +27,8 @@ function checkEnd(event) {
   }
   
   function showEnd() {
+    let restartEl = document.getElementById("restart-icon");
+    restartEl.style.display = "block";
     if (allDone) return;
     stopTimer();
   

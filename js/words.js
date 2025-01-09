@@ -124,8 +124,28 @@ document.addEventListener("keydown", function (event) {
 
 // Matches event input to the text
 function inputCheck(event) {
+  // Switches modes
+  const wordFl = document.querySelectorAll(".wordFlag");
+  const timeFl = document.querySelectorAll(".timeFlag");
+  const quoteFl = document.querySelectorAll(".quoteFlag");
+  const zenFl = document.querySelectorAll(".zenFlag");
+  let timerEl = document.getElementById("timer");
+  let wordCountEl = document.getElementById("wordCount");
   if (allDone) return;
   if (typingStarted == false && typingDone == false) {
+    if (wordFl.length > 0) {
+      timerEl.style.display = "none";
+      wordCountEl.style.display = "block";
+    } else if (timeFl.length > 0) {
+      timerEl.style.display = "block";
+      wordCountEl.style.display = "none";
+    } else if (quoteFl.length > 0) {
+      timerEl.style.display = "none";
+      wordCountEl.style.display = "block";
+    } else if (zenFl.length > 0) {
+      timerEl.style.display = "none";
+      wordCountEl.style.display = "block";
+    }
     typingStarted = true;
     startTimer();
   }
@@ -200,3 +220,7 @@ function zenFocus() {
 }
 
 function getTotalWords() {}
+
+function restart() {
+  window.location.href = "index.html"; // Redirects to index.html
+}

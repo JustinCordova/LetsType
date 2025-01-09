@@ -19,23 +19,22 @@ function toggleDisplay(clickedId) {
   buttons.forEach((button) => {
     // Reset button color to default (gray)
     button.style.color = "#808080";
+    timerEl.style.display = "none";
+    wordCountEl.style.display = "none";
     if (clickedId === "times") {
       zen.classList.remove("zenFlag");
       quote.classList.remove("quoteFlag");
       resetWordButtons();
       // Hide
       words.style.display = "none";
-      wordCountEl.style.display = "none";
       // Show
-      timerEl.style.display = "block";
     } else if (clickedId === "words") {
+      resetTimeButtons();
       zen.classList.remove("zenFlag");
       quote.classList.remove("quoteFlag");
       // Hide
       times.style.display = "none";
-      timerEl.style.display = "none";
       // Show
-      wordCountEl.style.display = "block";
     } else if (clickedId === "quote") {
       resetTimeButtons();
       resetWordButtons();
@@ -45,9 +44,7 @@ function toggleDisplay(clickedId) {
       // Hide
       times.style.display = "none";
       words.style.display = "none";
-      timerEl.style.display = "none";
       // Show
-      wordCountEl.style.display = "block";
     } else if (clickedId === "zen") {
       resetTimeButtons();
       resetWordButtons();
@@ -56,8 +53,6 @@ function toggleDisplay(clickedId) {
       // Hide everything
       times.style.display = "none";
       words.style.display = "none";
-      timerEl.style.display = "none";
-      wordCountEl.style.display = "none";
       // Show
     }
     // Hide the times and # of words if Quote or Zen is clicked

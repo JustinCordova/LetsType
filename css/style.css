@@ -208,7 +208,7 @@ footer p {
   margin-top: 0px;
   font-size: 2em;
   color: #f7768e;
-  display: block;
+  display: none;
 }
 
 .wordCount {
@@ -222,4 +222,61 @@ footer p {
   font-size: 2em;
   color: #f7768e;
   display: none;
+}
+
+/* Restart Button */
+.restart-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  margin: 0;
+  display: none;
+}
+
+#restart {
+  position: relative; /* Needed for the pseudo-elements to align correctly */
+  height: 50px;
+  width: 150px; /* Adjusted for better proportion */
+  z-index: 3;
+  font-size: 1.25em;
+  text-align: center;
+  color: #f7768e;
+  background: linear-gradient(45deg, #0ce39a, #69007f, #fc0987);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#restart::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: #272727;
+  background: rgba(39, 39, 39, 0.8);
+  border-radius: 9px;
+  transition: 0.5s;
+  z-index: 1;
+}
+
+#restart:hover::before {
+  opacity: 0.7;
+}
+
+#restart::after {
+  content: "";
+  position: absolute;
+  inset: 0px;
+  background: linear-gradient(45deg, #0ce39a, #69007f, #fc0987);
+  border-radius: 10px;
+  transition: 0.5s;
+  opacity: 0;
+  filter: blur(20px);
+  z-index: 1;
+}
+
+#restart:hover::after {
+  opacity: 1;
 }
