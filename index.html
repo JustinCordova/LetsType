@@ -11,7 +11,11 @@
     <main>
       <div class="title">
         <div class="logo">
-          <img src="assets/img/LetsType.png" width="120" style="border-radius: 20%" />
+          <img
+            src="assets/img/LetsType.png"
+            width="120"
+            style="border-radius: 20%"
+          />
         </div>
         <h1 class="letsType">LetsType</h1>
       </div>
@@ -30,11 +34,19 @@
             style="color: #f7768e"
             >Time</span
           >
-          <span onclick="toggleDisplay('words'); displayText(); resetGlobalVar(); wordCount();" id="words">Words</span>
-          <span onclick="toggleDisplay('quote'); displayText(); resetGlobalVar(); autoFocus(); wordCount();" id="quote"
+          <span
+            onclick="toggleDisplay('words'); displayText(); resetGlobalVar(); wordCount();"
+            id="words"
+            >Words</span
+          >
+          <span
+            onclick="toggleDisplay('quote'); displayText(); resetGlobalVar(); autoFocus(); wordCount();"
+            id="quote"
             >Quote</span
           >
-          <span onclick="toggleDisplay('zen'); displayText(); resetGlobalVar()" id="zen"
+          <span
+            onclick="toggleDisplay('zen'); displayText(); resetGlobalVar();"
+            id="zen"
             >Zen</span
           >
         </div>
@@ -42,22 +54,22 @@
         <div class="timeword-buttons">
           <div id="times-set" class="buttons-set" style="display: block">
             <span
-              onclick="selectTime('time1'); displayText(); autoFocus();"
+              onclick="selectTime('time1'); displayText(); autoFocus(); resetGlobalVar();"
               id="time1"
               >15</span
             >
             <span
-              onclick="selectTime('time2'); displayText(); autoFocus();"
+              onclick="selectTime('time2'); displayText(); autoFocus(); resetGlobalVar();"
               id="time2"
               >30</span
             >
             <span
-              onclick="selectTime('time3'); displayText(); autoFocus();"
+              onclick="selectTime('time3'); displayText(); autoFocus(); resetGlobalVar();"
               id="time3"
               >60</span
             >
             <span
-              onclick="selectTime('time4'); displayText(); autoFocus();"
+              onclick="selectTime('time4'); displayText(); autoFocus(); resetGlobalVar();"
               id="time4"
               >120</span
             >
@@ -66,31 +78,41 @@
 
         <div id="words-set" class="buttons-set" style="display: none">
           <span
-            onclick="selectWord('word1'); displayText(); autoFocus(); resetWordCount(); wordCount();"
+            onclick="selectWord('word1'); displayText(); autoFocus(); resetWordCount(); wordCount(); resetGlobalVar();"
             id="word1"
             >10</span
           >
           <span
-            onclick="selectWord('word2'); displayText(); autoFocus(); resetWordCount(); wordCount();"
+            onclick="selectWord('word2'); displayText(); autoFocus(); resetWordCount(); wordCount();  resetGlobalVar();"
             id="word2"
             >25</span
           >
           <span
-            onclick="selectWord('word3'); displayText(); autoFocus(); resetWordCount(); wordCount();"
+            onclick="selectWord('word3'); displayText(); autoFocus(); resetWordCount(); wordCount();  resetGlobalVar();"
             id="word3"
             >50</span
           >
           <span
-            onclick="selectWord('word4'); displayText(); autoFocus(); resetWordCount(); wordCount();"
+            onclick="selectWord('word4'); displayText(); autoFocus(); resetWordCount(); wordCount();  resetGlobalVar();"
             id="word4"
             >100</span
           >
         </div>
       </nav>
 
-      <!-- Endscreen Timer -->
-      <div class="globalTimer" id="globalTimer" style="color: white; font-size: 0px; opacity: 0; width: 1px; height: 1px;">
-        <span id="minutes">00</span>:<span id="seconds">00</span>
+      <!-- Global Timer -->
+      <div
+        class="globalTimer"
+        id="globalTimer"
+        style="
+          color: white;
+          font-size: 0px;
+          opacity: 100;
+          width: 1px;
+          height: 1px;
+        "
+      >
+        <span id="globalMinutes">00</span>:<span id="globalSeconds">00</span>
       </div>
       <!-- Timer for Time Button -->
       <span class="timer" id="timer" oninput="time()">
@@ -102,19 +124,35 @@
         <span id="backslash">/</span>
         <span id="denominator">10</span>
       </span>
+      <div id="endScreen" class="endScreen">
+        <h1>Results</h1>
+        <div class="stats">
+          <p><span id="wpmLabel">WPM:</span> <span id="wpmValue">0</span></p>
+          <p>
+            <span id="wordsTypedLabel">Words:</span>
+            <span id="wordsTypedValue">0</span>
+          </p>
+          <p>
+            <span id="accuracyLabel">Accuracy:</span>
+            <span id="accuracyValue">0</span>
+            <span id="accuracyLabel">%</span>
+          </p>
+          <p>
+            <span id="timeTakenLabel">Time:</span>
+            <span id="timeTakenValue">0 seconds</span>
+          </p>
+        </div>
+      </div>
       <!-- Restart-->
-      <div class="restart-icon">
+      <div class="restart-icon" id="restart-icon">
         <button onclick="restart()" id="restart">Restart</button>
       </div>
-      
+
       <!--
       <div class="language-box">
         <button onclick="newElement()" id="language">Language</button>
       </div> 
       -->
-      <div class="endWPM"></div>
-      <div class="endTime"></div>
-      <div class="endWordsTyped"></div>
 
       <!-- User Input -->
       <div class="typing-container">
@@ -127,7 +165,7 @@
           class="zen-input"
           autocomplete="off"
           placeholder="TYPE"
-          style="z-index: 1; display: none;"
+          style="z-index: 1; display: none"
         />
         <input
           type="text"
@@ -136,7 +174,7 @@
           class="typing-input"
           autocomplete="off"
           style="border: none; background: transparent; color: purple"
-          oninput="inputCheck(event); wordCount();"
+          oninput="inputCheck(event); wordCount(); checkEnd(event);"
         />
       </div>
     </main>
@@ -149,5 +187,4 @@
   <script src="js/words.js"></script>
   <script src="js/mode.js"></script>
   <script src="js/timer.js"></script>
-  <script src="js/endScreen.js"></script>
 </html>

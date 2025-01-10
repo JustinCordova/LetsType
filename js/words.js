@@ -7,6 +7,8 @@ let curWordIndex = -1;
 let wordIndex = 0;
 let wordDict = {};
 let allDone = false;
+let wrongCount = 0;
+let accCount = 0;
 
 let typingStarted = false;
 let typingDone = false;
@@ -32,6 +34,7 @@ function resetGlobalVar() {
   backSpaceStrokes = 0;
   typingDone = false;
   typingStarted = false;
+  resetGlobalTimer();
 }
 
 function clearAllSpans() {
@@ -133,12 +136,15 @@ function inputCheck(event) {
   let wordCountEl = document.getElementById("wordCount");
   if (allDone) return;
   if (typingStarted == false && typingDone == false) {
+    typingStarted = true;
+    startGlobalTimer();
     if (wordFl.length > 0) {
       timerEl.style.display = "none";
       wordCountEl.style.display = "block";
     } else if (timeFl.length > 0) {
       timerEl.style.display = "block";
       wordCountEl.style.display = "none";
+      startCountDown();
     } else if (quoteFl.length > 0) {
       timerEl.style.display = "none";
       wordCountEl.style.display = "block";
@@ -146,8 +152,7 @@ function inputCheck(event) {
       timerEl.style.display = "none";
       wordCountEl.style.display = "block";
     }
-    typingStarted = true;
-    startTimer();
+
   }
 
   if (!event.data && event.inputType !== "deleteContentBackward") return;
@@ -160,11 +165,18 @@ function inputCheck(event) {
 
   if (charArray[curWordIndex] === event.data) {
     dispEl.style.color = "lightgreen";
+    accCount++;
   } else {
     if (charArray[curWordIndex] === " ") {
       dispEl.style.backgroundColor = "indianred";
+      wrongCount++;
+      accCount++;
     }
-    dispEl.style.color = "indianred";
+     else { 
+        dispEl.style.color = "indianred";
+        wrongCount++;
+        accCount++;
+    }
   }
 }
 
@@ -219,8 +231,72 @@ function zenFocus() {
   document.getElementById("zen-input").focus();
 }
 
-function getTotalWords() {}
 
 function restart() {
   window.location.href = "index.html"; // Redirects to index.html
+  let restartEl = document.getElementById("restart-icon");
+  restartEl.style.display = "none";
+}
+
+// EndScreen
+
+// Accuracy (total - backspace) / total
+let totalStrokes = 0;
+let backSpaceStrokes = 0;
+// WPM
+let totalWords; // in wordParse
+
+function checkEnd(event) {
+  let dispEl = document.getElementById("t" + curWordIndex);
+  console.log(curWordIndex);
+  console.log(dispEl);
+  // Case Correct
+  if (
+    curWordIndex === charArray.length - 1 &&
+    dispEl.style.color === "lightgreen"
+  ) {
+    console.log("Reached correct case");
+    showEnd();
+  }
+
+  // Case Incorrect
+  else if (curWordIndex >= charArray.length - 1 && event.data === " ") {
+    console.log("Reached incorrect case");
+    console.log(event.key);
+    showEnd();
+  }
+}
+
+function showEnd() {
+  updateEndStats();
+  let restartEl = document.getElementById("restart-icon");
+  let endScreenEl = document.getElementById("endScreen");
+  endScreenEl.style.display = "block";
+  restartEl.style.display = "block";
+  restartEl.style.zIndex = "3";
+  if (allDone) return;
+  stopGlobalTimer();
+  allDone = true;
+}
+
+function updateEndStats() {
+  let wpmValue = document.getElementById("wpmValue");
+  let wordsTypedValue = document.getElementById("wordsTypedValue");
+  let timeTakenValue = document.getElementById("timeTakenValue");
+  let accuracyValue = document.getElementById("accuracyValue");
+  let numer = document.getElementById("numerator");
+  let numerValue = parseInt(numer.innerHTML.trim(), 10);
+  console.log(numer.innerHTML) 
+
+  
+  wpmValue.innerHTML = (numerValue / 60).toFixed(2);
+  wordsTypedValue.innerHTML = parseInt(numer.innerHTML, 10);
+  accuracyValue.innerHTML = Math.round(((accCount - wrongCount) / accCount) * 100)
+  timeTakenValue.innerHTML = getGlobalTime();
+
+  console.log("wpm: " + wpmValue.innerHTML) 
+  console.log("words: " + wordsTypedValue.innerHTML)
+  console.log("acc: " + accuracyValue.innerHTML)
+  console.log("time: " + timeTakenValue.innerHTML)
+
 }

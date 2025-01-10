@@ -39,6 +39,7 @@ function word() {
   dispEl.innerHTML = "";
   let count = 0;
   charArray.forEach((char) => {
+
     const charSpan = document.createElement("span");
     charSpan.textContent = char;
     charSpan.id = "t" + count;
@@ -167,6 +168,10 @@ function zen() {
 let countTime;
 let secondCount;
 let minuteCount;
+let countDownInterval = null;
+let totalTimerSeconds;
+let timeButtonSelectedValue;
+let countTimer = 0;
 
 // Time
 function time() {
@@ -189,9 +194,10 @@ function time() {
       break;
   }
 
-  let totalSeconds = parseInt(countDown, 10);
-  secondCount = parseInt(countDown, 10);
+  timeButtonSelectedValue = parseInt(countTime, 10);
+  totalTimerSeconds = parseInt(countTime, 10);
   minuteCount = Math.floor(totalSeconds / 60);
+  secondCount = totalSeconds % 60;
 
   const inpEl = document.getElementById("typing-input");
   const zenEl = document.getElementById("zen-input");
@@ -225,51 +231,50 @@ function time() {
 }
 
 // Main countDown Function
-function countDown() {
-  if (countDown == 0) {
-    stopCountDown();
+function timeModeTimer() {
+  countTimer++;
+  if (countTimer == 100) {
+    if (getGlobalTime() == timeButtonSelectedValue) {
+      console.log("reached end of timer")
+      stopCountDown();
+      showEnd();
+    }  
+    //console.log("decrementing" + totalTimerSeconds)
+    totalTimerSeconds--;
+    // Format and display time
+    minuteCount = parseInt(totalTimerSeconds / 60)
+    secondCount = totalTimerSeconds % 60
+    updateTime(minuteCount, secondCount); 
+    countTimer = 0;
   }
-  countTime--;
-  // Update seconds and minutes based on count
-  if (count === 100) {
-    secondCount--;
-    count = 0;
-  }
-  if (secondCount === 60) {
-    minuteCount--;
-    secondCount = 0;
-  }
-
-  // Format and display time
-  updateDisplay(minuteCount, secondCount);
 }
 
 // Display the formatted time
-function updateDisplay(minuteCount, minuteCount) {
+function updateDisplay(minuteCount, secondCount) {
   // Format as two-digit strings
   const minString = minuteCount < 10 ? "0" + minuteCount : minuteCount;
-  const secString = minuteCount < 10 ? "0" + minuteCount : minuteCount;
+  const secString = secondCount < 10 ? "0" + secondCount : secondCount;
 
   // Update HTML content
   document.getElementById("minutes").innerText = minString;
   document.getElementById("seconds").innerText = secString;
 }
 
-// Countdown Function
-function showTime(countDown) {
-  let totalSeconds = parseInt(countDown, 10);
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
+// // Countdown Function
+// function showTime(countDown) {
+//   const minutes = Math.floor(totalSeconds / 60);
+//   const seconds = totalSeconds % 60;
 
-  // Format and display time
-  updateDisplay(minutes, seconds);
-}
+//   // Format and display time
+//   updateDisplay(minutes, seconds);
+// }
 
 // Starts the timer when typing begins
 function startCountDown() {
+  console.log("In startCountDown");
   if (typingStarted) {
     typingDone = false; // Ensure the timer can run again
-    countDownInterval = setInterval(countDown, 10); // Run every 10 ms
+    countDownInterval = setInterval(timeModeTimer, 10); // Run every 1000 ms
   }
 }
 
@@ -281,10 +286,21 @@ function stopCountDown() {
 
 // Resets the timer
 function resetCountDown() {
+  clearInterval(countDownInterval);
+
   countDown = 0;
   secondCount = 0;
   minuteCount = 0;
   typingStarted = false;
   typingDone = false;
   updateDisplay(0, 0); // Reset the display
+}
+
+
+function updateTime() {
+  let globalTime = getGlobalTime();
+  let minutes = parseInt((timeButtonSelectedValue - globalTime) / 60)
+  let seconds = (timeButtonSelectedValue - globalTime) % 60;
+
+  updateDisplay(minutes, seconds)
 }
