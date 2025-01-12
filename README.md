@@ -12,7 +12,7 @@
 - **Time Mode**: Test your typing speed by completing as much as possible within a set time limit (15s, 30s, 60s, or 120s).  
 - **Words Mode**: Focus on typing a specific number of words (10, 25, 50, or 100).  
 - **Quote Mode**: Improve precision by typing well-known quotes.  
-- **Zen Mode**: Relax and type at your own pace without timers or word limits.  
+- **Zen Mode**: *In Progress*
 
 ### Real-Time Tracking and Feedback  
 - Dynamic text updates and instant feedback help improve accuracy.  
@@ -33,26 +33,3 @@
 - **JavaScript**: Dynamic functionality to enhance interactivity and responsiveness.  
 
 ---
-
-## About the Team  
-
-LetsType was developed by **LeFamily**:  
-- **LeDema**  
-- **LeCordova**  
-- **LeLabit**  
-- **LeChen**  
-- **LeAndrew**  
-
----
-
-## Future Enhancements  
-
-Here are some upcoming features:  
-- **Detailed Statistics**: Track metrics such as WPM and accuracy.  
-- **User Accounts**: Save progress and compete with others.  
-- **Dark/Light Mode**: Customize the interface for different environments.  
-- **Multilingual Support**: Practice typing in various languages.  
-
----
-
-**Check it out now**: [zaclabit.github.io/LeType](https://zaclabit.github.io/LeType/)  
