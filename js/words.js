@@ -34,6 +34,8 @@ function resetGlobalVar() {
   backSpaceStrokes = 0;
   typingDone = false;
   typingStarted = false;
+  wrongCount = 0;
+  accCount = 0;
   resetGlobalTimer();
 }
 
