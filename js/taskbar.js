@@ -19,8 +19,8 @@ function toggleDisplay(clickedId) {
   buttons.forEach((button) => {
     // Reset button color to default (gray)
     button.style.color = "#808080";
-    timerEl.style.display = "none";
-    wordCountEl.style.display = "none";
+    timerEl.style.fontSize = "0";
+    wordCountEl.style.fontSize = "0";
     if (clickedId === "times") {
       zen.classList.remove("zenFlag");
       quote.classList.remove("quoteFlag");

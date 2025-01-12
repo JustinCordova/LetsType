@@ -139,20 +139,19 @@ function inputCheck(event) {
     typingStarted = true;
     startGlobalTimer();
     if (wordFl.length > 0) {
-      timerEl.style.display = "none";
-      wordCountEl.style.display = "block";
+      timerEl.style.fontSize = "0";
+      wordCountEl.style.fontSize = "2em";
     } else if (timeFl.length > 0) {
-      timerEl.style.display = "block";
-      wordCountEl.style.display = "none";
+      timerEl.style.fontSize = "2em";
+      wordCountEl.style.fontSize = "0";
       startCountDown();
     } else if (quoteFl.length > 0) {
-      timerEl.style.display = "none";
-      wordCountEl.style.display = "block";
+      timerEl.style.fontSize = "0";
+      wordCountEl.style.fontSize = "2em";
     } else if (zenFl.length > 0) {
-      timerEl.style.display = "none";
-      wordCountEl.style.display = "block";
+      timerEl.style.fontSize = "0";
+      wordCountEl.style.fontSize = "2em";
     }
-
   }
 
   if (!event.data && event.inputType !== "deleteContentBackward") return;
@@ -171,11 +170,10 @@ function inputCheck(event) {
       dispEl.style.backgroundColor = "indianred";
       wrongCount++;
       accCount++;
-    }
-     else { 
-        dispEl.style.color = "indianred";
-        wrongCount++;
-        accCount++;
+    } else {
+      dispEl.style.color = "indianred";
+      wrongCount++;
+      accCount++;
     }
   }
 }
@@ -231,7 +229,6 @@ function zenFocus() {
   document.getElementById("zen-input").focus();
 }
 
-
 function restart() {
   window.location.href = "index.html"; // Redirects to index.html
   let restartEl = document.getElementById("restart-icon");
@@ -268,6 +265,15 @@ function checkEnd(event) {
 }
 
 function showEnd() {
+  document.addEventListener(
+    "keydown",
+    function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    },
+    true
+  );
+
   updateEndStats();
   let restartEl = document.getElementById("restart-icon");
   let endScreenEl = document.getElementById("endScreen");
@@ -285,18 +291,14 @@ function updateEndStats() {
   let timeTakenValue = document.getElementById("timeTakenValue");
   let accuracyValue = document.getElementById("accuracyValue");
   let numer = document.getElementById("numerator");
-  let numerValue = parseInt(numer.innerHTML.trim(), 10);
-  console.log(numer.innerHTML) 
 
-  
-  wpmValue.innerHTML = (numerValue / 60).toFixed(2);
+  let timeInMinutes = getGlobalTime() / 60;
+  let chTyped = accCount + wrongCount - backSpaceStrokes;
+
+  wpmValue.innerHTML = parseInt(((chTyped / 5) / timeInMinutes));
   wordsTypedValue.innerHTML = parseInt(numer.innerHTML, 10);
-  accuracyValue.innerHTML = Math.round(((accCount - wrongCount) / accCount) * 100)
+  accuracyValue.innerHTML = Math.round(
+    ((accCount - wrongCount) / accCount) * 100
+  );
   timeTakenValue.innerHTML = getGlobalTime();
-
-  console.log("wpm: " + wpmValue.innerHTML) 
-  console.log("words: " + wordsTypedValue.innerHTML)
-  console.log("acc: " + accuracyValue.innerHTML)
-  console.log("time: " + timeTakenValue.innerHTML)
-
 }
