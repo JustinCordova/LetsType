@@ -1,10 +1,10 @@
 // Words
 function word() {
   const inpEl = document.getElementById("typing-input");
-  const zenEl = document.getElementById("zen-input");
+  // const zenEl = document.getElementById("zen-input");
   inpEl.style.display = "block";
-  zenEl.style.display = "none";
-  zenEl.style.zIndex = "-1";
+  // zenEl.style.display = "none";
+  // zenEl.style.zIndex = "-1";
   autoFocus();
   // Switches based on word option type
   let wordEl = document.getElementsByClassName("wordFlag")[0].innerText;
@@ -93,10 +93,10 @@ function wordCount() {
 function quote() {
   const quoteFl = document.querySelectorAll(".quoteFlag");
   const inpEl = document.getElementById("typing-input");
-  const zenEl = document.getElementById("zen-input");
+  // const zenEl = document.getElementById("zen-input");
   inpEl.style.display = "block";
-  zenEl.style.display = "none";
-  zenEl.style.zIndex = "-1";
+  // zenEl.style.display = "none";
+  // zenEl.style.zIndex = "-1";
   autoFocus();
 
   charArray = quoteUsed.split("");
@@ -117,53 +117,53 @@ function quote() {
   });
 }
 
-// Zen
-function zen() {
-  if (typingStarted == false && typingDone == false) {
-    typingStarted = true;
-    startTimer();
-  }
-  let doneZen = false; // Tracks if Zen mode is complete
-  const dispEl = document.getElementById("text-display");
-  const inpEl = document.getElementById("typing-input");
-  const zenEl = document.getElementById("zen-input");
-  inpEl.style.display = "none";
-  zenEl.style.display = "block";
-  zenEl.style.opacity = "0";
-  zenEl.style.zIndex = "1";
-  zenEl.value = "";
-  zenFocus();
+// // Zen
+// function zen() {
+//   if (typingStarted == false && typingDone == false) {
+//     typingStarted = true;
+//     startTimer();
+//   }
+//   let doneZen = false; // Tracks if Zen mode is complete
+//   const dispEl = document.getElementById("text-display");
+//   const inpEl = document.getElementById("typing-input");
+//   const zenEl = document.getElementById("zen-input");
+//   inpEl.style.display = "none";
+//   zenEl.style.display = "block";
+//   zenEl.style.opacity = "0";
+//   zenEl.style.zIndex = "1";
+//   zenEl.value = "";
+//   zenFocus();
 
-  // Shift + Enter for EndScreen
-  zenEl.addEventListener("keydown", function (event) {
-    if (event.key === "Enter" && event.shiftKey) {
-      // Prevent default behavior
-      event.preventDefault();
+//   // Shift + Enter for EndScreen
+//   zenEl.addEventListener("keydown", function (event) {
+//     if (event.key === "Enter" && event.shiftKey) {
+//       // Prevent default behavior
+//       event.preventDefault();
 
-      // End Zen mode
-      doneZen = true;
-      showEnd(); // Call your custom end function
-      zenEl.value = ""; // Clear input box
-    }
-  });
-  // Add event listener for real-time input
-  zenEl.addEventListener("input", function () {
-    if (!doneZen) {
-      dispEl.innerHTML = "";
-      const zenArray = [];
-      // Adding whatever is in the input box to zenArray
-      for (let i = 0; i < zenEl.value.length; i++) {
-        const char = zenEl.value[i];
-        const span = document.createElement("span");
-        span.textContent = char;
-        span.id = "t" + i;
-        zenArray.push(span);
-        dispEl.appendChild(span);
-        console.log(zenArray);
-      }
-    }
-  });
-}
+//       // End Zen mode
+//       doneZen = true;
+//       showEnd(); // Call your custom end function
+//       zenEl.value = ""; // Clear input box
+//     }
+//   });
+//   // Add event listener for real-time input
+//   zenEl.addEventListener("input", function () {
+//     if (!doneZen) {
+//       dispEl.innerHTML = "";
+//       const zenArray = [];
+//       // Adding whatever is in the input box to zenArray
+//       for (let i = 0; i < zenEl.value.length; i++) {
+//         const char = zenEl.value[i];
+//         const span = document.createElement("span");
+//         span.textContent = char;
+//         span.id = "t" + i;
+//         zenArray.push(span);
+//         dispEl.appendChild(span);
+//         console.log(zenArray);
+//       }
+//     }
+//   });
+// }
 
 let countTime;
 let secondCount;
@@ -200,10 +200,10 @@ function time() {
   secondCount = totalSeconds % 60;
 
   const inpEl = document.getElementById("typing-input");
-  const zenEl = document.getElementById("zen-input");
+  // const zenEl = document.getElementById("zen-input");
   inpEl.style.display = "block";
-  zenEl.style.display = "none";
-  zenEl.style.zIndex = "-1";
+  // zenEl.style.display = "none";
+  // zenEl.style.zIndex = "-1";
   autoFocus();
   // Show text
   wordArray = randomizeArray(wordArray, 200);

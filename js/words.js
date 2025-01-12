@@ -75,7 +75,7 @@ async function displayText() {
   const wordFl = document.querySelectorAll(".wordFlag");
   const timeFl = document.querySelectorAll(".timeFlag");
   const quoteFl = document.querySelectorAll(".quoteFlag");
-  const zenFl = document.querySelectorAll(".zenFlag");
+  // const zenFl = document.querySelectorAll(".zenFlag");
   if (wordFl.length > 0) {
     await wordParse();
     word();
@@ -85,9 +85,10 @@ async function displayText() {
   } else if (quoteFl.length > 0) {
     await quoteParse();
     quote();
-  } else if (zenFl.length > 0) {
-    zen();
-  }
+  } 
+  // else if (zenFl.length > 0) {
+  //   zen();
+  // }
 }
 
 // Event Listener for Typing
@@ -131,7 +132,7 @@ function inputCheck(event) {
   const wordFl = document.querySelectorAll(".wordFlag");
   const timeFl = document.querySelectorAll(".timeFlag");
   const quoteFl = document.querySelectorAll(".quoteFlag");
-  const zenFl = document.querySelectorAll(".zenFlag");
+  // const zenFl = document.querySelectorAll(".zenFlag");
   let timerEl = document.getElementById("timer");
   let wordCountEl = document.getElementById("wordCount");
   if (allDone) return;
@@ -148,10 +149,11 @@ function inputCheck(event) {
     } else if (quoteFl.length > 0) {
       timerEl.style.fontSize = "0";
       wordCountEl.style.fontSize = "2em";
-    } else if (zenFl.length > 0) {
-      timerEl.style.fontSize = "0";
-      wordCountEl.style.fontSize = "2em";
-    }
+    } 
+    // else if (zenFl.length > 0) {
+    //   timerEl.style.fontSize = "0";
+    //   wordCountEl.style.fontSize = "2em";
+    // }
   }
 
   if (!event.data && event.inputType !== "deleteContentBackward") return;
@@ -225,9 +227,9 @@ function autoFocus() {
   document.getElementById("typing-input").focus();
 }
 
-function zenFocus() {
-  document.getElementById("zen-input").focus();
-}
+// function zenFocus() {
+//   document.getElementById("zen-input").focus();
+// }
 
 function restart() {
   window.location.href = "index.html"; // Redirects to index.html

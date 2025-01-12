@@ -4,7 +4,7 @@ function toggleDisplay(clickedId) {
   const times = document.getElementById("times-set");
   const words = document.getElementById("words-set");
   const quote = document.getElementById("quote");
-  const zen = document.getElementById("zen");
+  // const zen = document.getElementById("zen");
   let timerEl = document.getElementById("timer");
   let wordCountEl = document.getElementById("wordCount");
 
@@ -12,7 +12,7 @@ function toggleDisplay(clickedId) {
     times: times,
     words: words,
     quote: quote,
-    zen: zen,
+    // zen: zen,
   };
 
   // Loop through all buttons and reset their styles
@@ -22,7 +22,7 @@ function toggleDisplay(clickedId) {
     timerEl.style.fontSize = "0";
     wordCountEl.style.fontSize = "0";
     if (clickedId === "times") {
-      zen.classList.remove("zenFlag");
+      // zen.classList.remove("zenFlag");
       quote.classList.remove("quoteFlag");
       resetWordButtons();
       // Hide
@@ -30,7 +30,7 @@ function toggleDisplay(clickedId) {
       // Show
     } else if (clickedId === "words") {
       resetTimeButtons();
-      zen.classList.remove("zenFlag");
+      // zen.classList.remove("zenFlag");
       quote.classList.remove("quoteFlag");
       // Hide
       times.style.display = "none";
@@ -38,23 +38,24 @@ function toggleDisplay(clickedId) {
     } else if (clickedId === "quote") {
       resetTimeButtons();
       resetWordButtons();
-      zen.classList.remove("zenFlag");
+      // zen.classList.remove("zenFlag");
       quote.classList.add("quoteFlag");
 
       // Hide
       times.style.display = "none";
       words.style.display = "none";
       // Show
-    } else if (clickedId === "zen") {
-      resetTimeButtons();
-      resetWordButtons();
-      quote.classList.remove("quoteFlag");
-      zen.classList.add("zenFlag");
-      // Hide everything
-      times.style.display = "none";
-      words.style.display = "none";
-      // Show
-    }
+    } 
+    // else if (clickedId === "zen") {
+    //   resetTimeButtons();
+    //   resetWordButtons();
+    //   quote.classList.remove("quoteFlag");
+    //   zen.classList.add("zenFlag");
+    //   // Hide everything
+    //   times.style.display = "none";
+    //   words.style.display = "none";
+    //   // Show
+    // }
     // Hide the times and # of words if Quote or Zen is clicked
     else {
       times.style.display = "none";
