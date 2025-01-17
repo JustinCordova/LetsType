@@ -2,7 +2,7 @@
 
 **LetsType** is an intuitive and interactive web application designed to enhance typing speed and accuracy. Whether you are a beginner or an experienced typist, LetsType offers a variety of engaging modes to help you improve and achieve your goals.  
 
-**Visit the website**: [zaclabit.github.io/LeType](https://zaclabit.github.io/LeType/)  
+**Visit the website**: [justincordova.github.io/LetsType](https://justincordova.github.io/LetsType/)  
 
 ---
 
